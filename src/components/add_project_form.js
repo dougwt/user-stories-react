@@ -1,9 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 import { createProject } from '../actions'
+import InputField from './input_field'
+
+import './add_project_form.css';
 
 class AddProjectForm extends Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
+
+  onSubmit(props) {
+    this.props.createProject(props)
+      .then(() => {
+        // project has been created, navigate the user to account home.
+        this.context.router.push('/')
+      })
+  }
+
   render() {
     const { handleSubmit } = this.props;
 
@@ -11,41 +27,21 @@ class AddProjectForm extends Component {
       <div>
         <h3>Add a new project</h3>
 
-        <form onSubmit={handleSubmit(this.props.createProject)}>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
 
-          <div className="form-group">
-            <label htmlFor="name">Project name</label>
             <Field
               name="name"
-              component="input"
-              type="text"
-              className="form-control"
-              placeholder="Name"
-            />
-          </div>
+              label="Project name"
+              placeholder="Project Name"
+              component={InputField}/>
 
-          <div className="form-group">
-            <label htmlFor="slug">Project slug</label>
             <Field
               name="slug"
-              component="input"
-              type="text"
-              className="form-control"
+              label="Project slug"
               placeholder="project-slug"
-            />
-          </div>
+              component={InputField}/>
 
-          {/* <div className="form-group">
-            <label htmlFor="roles">Roles</label>
-            <Field
-              name="roles"
-              component="input"
-              type="text"
-              className="form-control"
-              placeholder="user, admin, tester"
-            />
-          </div> */}
-
+          <Link to="/" className="btn btn-danger">Cancel</Link>
           <button type="submit" className="btn btn-default">Create a new project</button>
         </form>
       </div>
@@ -53,6 +49,19 @@ class AddProjectForm extends Component {
   }
 }
 
-AddProjectForm = reduxForm({form: 'add-project'})(AddProjectForm)
+function validate(values) {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = 'Enter a name'
+  }
+  if (!values.slug) {
+    errors.slug = 'Enter a slug'
+  }
+
+  return errors;
+}
+
+AddProjectForm = reduxForm({form: 'add-project', validate})(AddProjectForm)
 AddProjectForm = connect(null, { createProject })(AddProjectForm)
 export default AddProjectForm
