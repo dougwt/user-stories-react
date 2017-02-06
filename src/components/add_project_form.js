@@ -9,12 +9,12 @@ class AddProjectForm extends Component {
 
     return (
       <div>
-        <h3>Create a New Project</h3>
+        <h3>Add a new project</h3>
 
         <form onSubmit={handleSubmit(this.props.createProject)}>
 
           <div className="form-group">
-            <label htmlFor="name">Name</label>
+            <label htmlFor="name">Project name</label>
             <Field
               name="name"
               component="input"
@@ -25,7 +25,7 @@ class AddProjectForm extends Component {
           </div>
 
           <div className="form-group">
-            <label htmlFor="slug">Slug</label>
+            <label htmlFor="slug">Project slug</label>
             <Field
               name="slug"
               component="input"
@@ -35,7 +35,7 @@ class AddProjectForm extends Component {
             />
           </div>
 
-          <div className="form-group">
+          {/* <div className="form-group">
             <label htmlFor="roles">Roles</label>
             <Field
               name="roles"
@@ -44,9 +44,9 @@ class AddProjectForm extends Component {
               className="form-control"
               placeholder="user, admin, tester"
             />
-          </div>
+          </div> */}
 
-          <button type="submit" className="btn btn-default">Add Project</button>
+          <button type="submit" className="btn btn-default">Create a new project</button>
         </form>
       </div>
     )
