@@ -9,7 +9,7 @@ export default (field) => {
       <input {...field.input} placeholder={field.placeholder} type="text" className="form-control"/>
 
       <div className="help-block">
-        {field.meta.touched && field.meta.error ? field.meta.error : '' }
+        {field.meta.touched && field.meta.error ? field.meta.error : ''}
       </div>
 
     </div>

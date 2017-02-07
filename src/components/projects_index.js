@@ -10,7 +10,18 @@ class ProjectsIndex extends Component {
   }
 
   renderProjects() {
-    return this.props.projects.map((project) => <li key={project.name}>{project.name}</li>)
+    return this.props.projects.map((project) => {
+      return (
+        <li className="list-group-item" key={project._id}>
+          <span className="pull-right">{project.roles.map((role) => role.name).join(', ')}</span>
+          <strong>
+            <Link to={"projects/" + project._id}>
+              {project.name}
+            </Link>
+          </strong>
+        </li>
+      )
+    })
   }
 
   render() {
@@ -18,13 +29,15 @@ class ProjectsIndex extends Component {
       <div>
         <h3>Projects</h3>
 
-        <ul>
+        <ul className="list-group">
           {this.renderProjects()}
         </ul>
 
-        <Link to="/new">
-          Add a Project
-        </Link>
+        <div className="text-right">
+          <Link to="/new" className="btn btn-primary">
+            <span className="glyphicon glyphicon-plus"></span> Add
+          </Link>
+        </div>
       </div>
     );
   }
