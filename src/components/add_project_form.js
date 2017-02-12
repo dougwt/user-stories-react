@@ -12,7 +12,7 @@ class AddProjectForm extends Component {
     router: PropTypes.object
   };
 
-  onSubmit(props) {
+  handleFormSubmit(props) {
     this.props.createProject(props)
       .then(() => {
         // project has been created, navigate the user to account home.
@@ -27,7 +27,7 @@ class AddProjectForm extends Component {
       <div>
         <h3>Add a new project</h3>
 
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
             <Field
               name="name"
