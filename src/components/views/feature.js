@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchMessage } from '../actions';
+import { fetchMessage } from '../../actions';
 
 class Feature extends Component {
 

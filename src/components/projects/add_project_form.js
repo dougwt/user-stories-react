@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { createProject } from '../actions'
-import InputField from './input_field'
+import { createProject } from '../../actions'
+import InputField from '../input_field'
 
 import './add_project_form.css';
 

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProjectsIndex from './projects_index'
+import ProjectsIndex from '../projects/projects_index'
 
 export default () => {
   return (
