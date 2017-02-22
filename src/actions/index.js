@@ -15,10 +15,9 @@ export function authSignin({ email, password }) {
         // - update state to indicate user is authenticated
         dispatch({ type: AUTH_SIGNIN });
         // - save the JWT token
-        // TODO: Update this to response.data.token
-        localStorage.setItem('token', response.data.data);
-        // - redirect to the route '/feature'
-        browserHistory.push('/feature');
+        localStorage.setItem('token', response.data.token);
+        // - redirect to the route '/home'
+        browserHistory.push('/home');
       })
       .catch((err) => {
         // If request is bad...
@@ -44,8 +43,7 @@ export function authSignup({ email, password, name }) {
     axios.post(`${ROOT_URL}/signup`, { email, password, name })
       .then((response) => {
         dispatch({ type: AUTH_SIGNIN });
-        // TODO: Update this to response.data.token
-        localStorage.setItem('token', response.data.data);
+        localStorage.setItem('token', response.data.token);
         browserHistory.push('/feature');
       })
       .catch(error => dispatch(authError(error.response.data.message)))
@@ -64,7 +62,7 @@ export function authError(error) {
 export const FETCH_MESSAGE = 'FETCH_MESSAGE';
 
 export function fetchMessage(error) {
-  const request = axios.get(`${ROOT_URL}/signup`, {
+  const request = axios.get(`${ROOT_URL}/auth_test`, {
     headers: { authorization: localStorage.getItem('token') }
   })
 
@@ -77,7 +75,9 @@ export function fetchMessage(error) {
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 
 export function fetchProjects() {
-  const request = axios.get(`${ROOT_URL}/projects`)
+  const request = axios.get(`${ROOT_URL}/projects`, {
+    headers: { authorization: localStorage.getItem('token') }
+  })
 
   return {
     type: FETCH_PROJECTS,
@@ -88,7 +88,9 @@ export function fetchProjects() {
 export const CREATE_PROJECT = 'CREATE_PROJECT';
 
 export function createProject(props) {
-  const request = axios.post(`${ROOT_URL}/projects`, props)
+  const request = axios.post(`${ROOT_URL}/projects`, props, {
+    headers: { authorization: localStorage.getItem('token') }
+  })
 
   return {
     type: CREATE_PROJECT,
@@ -99,7 +101,9 @@ export function createProject(props) {
 export const FETCH_PROJECT = 'FETCH_PROJECT'
 
 export function fetchProject(id) {
-  const request = axios.get(`${ROOT_URL}/projects/${id}`)
+  const request = axios.get(`${ROOT_URL}/projects/${id}`, {
+    headers: { authorization: localStorage.getItem('token') }
+  })
 
   return {
     type: FETCH_PROJECT,
@@ -110,7 +114,9 @@ export function fetchProject(id) {
 export const DELETE_PROJECT = 'DELETE_PROJECT'
 
 export function deleteProject(id) {
-  const request = axios.delete(`${ROOT_URL}/projects/${id}`)
+  const request = axios.delete(`${ROOT_URL}/projects/${id}`, {
+    headers: { authorization: localStorage.getItem('token') }
+  })
 
   return {
     type: DELETE_PROJECT,

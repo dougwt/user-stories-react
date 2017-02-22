@@ -25,7 +25,7 @@ class HeaderNavbar extends Component {
         </Navbar.Brand>
       </Navbar.Header>
       <Nav>
-        <NavItem eventKey={1} href="#">Home</NavItem>
+        <NavItem eventKey={1} href="/home">Home</NavItem>
         <NavItem eventKey={2} href="/feature">Feature</NavItem>
         <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
           <MenuItem eventKey={3.1}>Action</MenuItem>
