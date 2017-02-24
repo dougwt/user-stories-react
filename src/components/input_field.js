@@ -6,7 +6,7 @@ export default (field) => {
 
       <label className="control-label" htmlFor={field.input.name}>{field.label}</label>
 
-      <input {...field.input} placeholder={field.placeholder} type="text" className="form-control"/>
+      <input {...field.input} placeholder={field.placeholder} type={field.type} className="form-control"/>
 
       <div className="help-block">
         {field.meta.touched && field.meta.error ? field.meta.error : ''}

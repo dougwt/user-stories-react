@@ -2,7 +2,24 @@
   "name": "user-stories-react",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
+    "test:watch": "npm run test -- --watch",
+    "test:jest": "react-scripts test --env=jsdom",
+    "test-travis": "NODE_ENV=test istanbul cover _mocha -- --compilers js:babel-core/register --recursive ./test",
+    "eject": "react-scripts eject"
+  },
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-jquery": "^2.0.0",
+    "coveralls": "^2.11.16",
+    "istanbul": "^1.1.0-alpha.1",
+    "jquery": "^3.1.1",
+    "jsdom": "^9.11.0",
+    "mocha": "^3.2.0",
+    "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.5"
   },
   "dependencies": {
@@ -15,12 +32,7 @@
     "react-router": "^3.0.2",
     "redux": "^3.6.0",
     "redux-form": "^6.5.0",
-    "redux-promise": "^0.5.3"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "redux-promise": "^0.5.3",
+    "redux-thunk": "^2.2.0"
   }
 }

@@ -2,8 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import { createProject } from '../actions'
-import InputField from './input_field'
+import { createProject } from '../../actions'
+import InputField from '../input_field'
 
 import './add_project_form.css';
 
@@ -12,7 +12,7 @@ class AddProjectForm extends Component {
     router: PropTypes.object
   };
 
-  onSubmit(props) {
+  handleFormSubmit(props) {
     this.props.createProject(props)
       .then(() => {
         // project has been created, navigate the user to account home.
@@ -27,7 +27,7 @@ class AddProjectForm extends Component {
       <div>
         <h3>Add a new project</h3>
 
-        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
 
             <Field
               name="name"

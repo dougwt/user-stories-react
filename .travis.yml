@@ -1,0 +1,25 @@
+language: node_js
+node_js:
+  - node
+cache:
+  directories:
+    - node_modules
+script:
+  - npm run-script test-travis
+  - npm run build
+after_success:
+  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - eval `ssh-agent -s`
+  - chmod 600 .travis/deployment_id_rsa
+  - ssh-add .travis/deployment_id_rsa
+  - echo "Pushing '$TRAVIS_BRANCH' changes to https://staging.myuserstories.com"
+before_script:
+  - echo -e "Host dougwt.webfactional.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+before_install:
+  - openssl aes-256-cbc -K $encrypted_08cd0e2d3da8_key -iv $encrypted_08cd0e2d3da8_iv -in .travis/deployment_id_rsa.enc -out .travis/deployment_id_rsa -d
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/ dougwt@dougwt.webfactional.com:webapps/myuserstories_staging
+  on:
+    all_branches: true
