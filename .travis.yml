@@ -12,10 +12,14 @@ after_success:
   - eval `ssh-agent -s`
   - chmod 600 .travis/deployment_id_rsa
   - ssh-add .travis/deployment_id_rsa
-  - git remote add staging ssh://dougwt@dougwt.webfactional.com/home/dougwt/webapps/gitweb/repos/myuserstories_staging.git
   - echo "Pushing '$TRAVIS_BRANCH' changes to https://staging.myuserstories.com"
-  - git push staging $TRAVIS_BRANCH --force
 before_script:
   - echo -e "Host dougwt.webfactional.com\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
 before_install:
   - openssl aes-256-cbc -K $encrypted_08cd0e2d3da8_key -iv $encrypted_08cd0e2d3da8_iv -in .travis/deployment_id_rsa.enc -out .travis/deployment_id_rsa -d
+deploy:
+  provider: script
+  skip_cleanup: true
+  script: rsync -r --delete-after --quiet $TRAVIS_BUILD_DIR/build/ dougwt@dougwt.webfactional.com:webapps/myuserstories_staging
+  on:
+    all_branches: true
