@@ -12,7 +12,14 @@ import reducers from '../src/reducers'
 
 // Set up testing environment to run like a browser in the command line
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
-global.window = global.document.defaultView;
+global.window = document.defaultView;
+if (!global.localStorage) {
+  global.localStorage = {
+    getItem() { return '{}'; },
+    removeItem() { return '{}'; },
+    setItem() {}
+  };
+}
 // global.navigator = { userAgent: 'node.js' };  // Source: http://stackoverflow.com/questions/37078882/mocha-chai-throws-navigator-not-defined-due-to-react-router-component/37084875#37084875
 const $ = _$(global.window);
 
