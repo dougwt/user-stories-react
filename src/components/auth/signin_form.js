@@ -25,7 +25,7 @@ class SigninForm extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <div>
+      <div className="signin-form">
         <h3>Sign in</h3>
 
         <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>

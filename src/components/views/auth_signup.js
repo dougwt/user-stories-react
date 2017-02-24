@@ -1,7 +1,11 @@
 import React from 'react';
 
-import AuthSignup from '../auth/signup_form'
+import SignupForm from '../auth/signup_form'
 
 export default () => {
-  return <AuthSignup />
+  return (
+    <div className="auth-signup">
+      <SignupForm />
+    </div>
+  )
 }
