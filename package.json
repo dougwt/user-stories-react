@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_API_URI_PREFIX=https://api.myuserstories.com react-scripts build",
     "test": "NODE_ENV=test mocha --compilers js:babel-core/register --require ./test/test_helper.js --recursive ./test",
     "test:watch": "npm run test -- --watch",
     "test:jest": "react-scripts test --env=jsdom",
