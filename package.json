@@ -22,7 +22,9 @@
     "nock": "^9.0.7",
     "react-addons-test-utils": "^15.4.2",
     "react-scripts": "0.8.5",
-    "redux-mock-store": "^1.2.2"
+    "redux-mock-store": "^1.2.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "axios": "^0.15.3",

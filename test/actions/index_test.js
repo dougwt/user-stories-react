@@ -1,6 +1,8 @@
 import configureMockStore from 'redux-mock-store'
 import nock from 'nock'
 import promise from 'redux-promise';
+import sinon from 'sinon';
+import * as router from 'react-router';
 
 import { expect } from '../test_helper';
 import * as actions from '../../src/actions'
@@ -15,30 +17,91 @@ describe('actions', () => {
   })
 
   describe('authSignin', () => {
-    xit('has the correct type', () => {
-      const action = actions.authSignin();
+    let data, store, action, newActions;
+
+    beforeEach((done) => {
+      data = {
+        "status": "success",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1OGEwMDU3OTRkYjczMzE2NjcxYjdiMTAiLCJpYXQiOjE0ODY5NDE3NTIxNzh9.XIrVFzi0QiWT3DkIzkpeFFrEYRXsJVkXW9GCYrrvpYY"
+      }
+      nock(API_URI_PREFIX)
+        .post('/signin')
+        .reply(200, data);
+
+      // Prepare to stub browserHistory to detect push
+      router.browserHistory = { push: ()=>{} };
+      const browserHistoryPushStub = sinon.stub(router.browserHistory, 'push', () => { });
+
+      // Prepare the mock store
+      store = mockStore({ authenticated: false, error: '' })
+      // Call our action creator
+      action = actions.authSignin({ email: 'test@example.com', password: 'password' });
+      // Execute the action creator's wrapper function to get the action.
+      action = action(store.dispatch)
+        .then(() => { // return of async actions
+          newActions = store.getActions();
+          // console.log('newActions:', newActions)
+          expect(browserHistoryPushStub).to.have.been.calledOnce;
+          browserHistoryPushStub.restore();
+          done();
+        })
+        .catch((err) => {
+          console.log('Error:', err);
+        });
+    })
+    it('has the correct type', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
       expect(action.type).to.equal(actions.AUTH_SIGNIN);
     });
-    // TODO: Find a way to test async requests
-    xit('has the correct payload', () => {
-      // const action = actions.authSignin({ email: 'test@example.com', password: 'password' });
-      // expect(action.payload).to.equal('token')
+    it('has the correct payload', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.payload).to.be.undefined;
+    });
+  });
 
+  describe('authSignup', () => {
+    let data, store, action, newActions;
+
+    beforeEach((done) => {
+      data = {
+        "status": "success",
+        "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1OGEwMDU3OTRkYjczMzE2NjcxYjdiMTAiLCJpYXQiOjE0ODY5NDE3NTIxNzh9.XIrVFzi0QiWT3DkIzkpeFFrEYRXsJVkXW9GCYrrvpYY"
+      }
       nock(API_URI_PREFIX)
-        .get('/signin')
-        .reply(200, {
-          "status": "success",
-          "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI1OGEwMDU3OTRkYjczMzE2NjcxYjdiMTAiLCJpYXQiOjE0ODY5NDE3NTIxNzh9.XIrVFzi0QiWT3DkIzkpeFFrEYRXsJVkXW9GCYrrvpYY"
-        });
+        .post('/signup')
+        .reply(201, data);
 
-      const store = mockStore({ authenticated: true, error: '' })
+      // Prepare to stub browserHistory to detect push
+      router.browserHistory = { push: ()=>{} };
+      const browserHistoryPushStub = sinon.stub(router.browserHistory, 'push', () => { });
 
-      const action = actions.authSignin({ email: 'test@example.com', password: 'password' });
-      console.log('action:', action)
-      return store.dispatch(action)
+      // Prepare the mock store
+      store = mockStore({ authenticated: false, error: '' })
+      // Call our action creator
+      action = actions.authSignup({ email: 'test@example.com', password: 'password', name: 'Test' });
+      // Execute the action creator's wrapper function to get the action.
+      action = action(store.dispatch)
         .then(() => { // return of async actions
-          expect(action.payload).to.equal('token')
+          newActions = store.getActions();
+          expect(browserHistoryPushStub).to.have.been.calledOnce;
+          browserHistoryPushStub.restore();
+          done();
         })
+        .catch((err) => {
+          console.log('Error:', err);
+        });
+    })
+    it('has the correct type', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.type).to.equal(actions.AUTH_SIGNIN);
+    });
+    it('has the correct payload', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.payload).to.be.undefined;
     });
   });
 
@@ -52,17 +115,6 @@ describe('actions', () => {
     });
     it('has the correct payload', () => {
       expect(action.payload).to.be.undefined;
-    });
-  });
-
-  describe('authSignup', () => {
-    xit('has the correct type', () => {
-      const action = actions.authSignup();
-      expect(action.type).to.equal(actions.AUTH_SIGNUP);
-    });
-    // TODO: Find a way to test async requests
-    xit('has the correct payload', () => {
-
     });
   });
 

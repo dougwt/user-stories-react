@@ -7,6 +7,7 @@ import jsdom from 'jsdom';
 import _$ from 'jquery';
 import chai, { expect } from 'chai';
 import chaiJquery from 'chai-jquery';
+import sinonChai from 'sinon-chai'
 
 import reducers from '../src/reducers'
 
@@ -45,5 +46,8 @@ $.fn.simulate = function(eventName, value) {
 
 // Set up chai-jquery
 chaiJquery(chai, chai.util, $);
+
+// Set up sinon-chai
+chai.use(sinonChai);
 
 export { renderComponent, expect };

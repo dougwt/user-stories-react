@@ -7,7 +7,7 @@ export const AUTH_SIGNIN = 'AUTH_SIGNIN';
 export function authSignin({ email, password }) {
   return function(dispatch) {
     // Submit email/password to the server
-    axios.post(`${API_URI_PREFIX}/signin`, { email, password })
+    return axios.post(`${API_URI_PREFIX}/signin`, { email, password })
       .then((response) => {
         // If request is good...
         // - update state to indicate user is authenticated
@@ -18,10 +18,28 @@ export function authSignin({ email, password }) {
         browserHistory.push('/home');
       })
       .catch((err) => {
+        console.log('err:', err)
         // If request is bad...
         // - show an error to the user
         dispatch(authError('Bad Login Info'));
       });
+  }
+}
+
+export function authSignup({ email, password, name }) {
+  return function(dispatch) {
+    // Submit email/password to the server
+    return axios.post(`${API_URI_PREFIX}/signup`, { email, password, name })
+      .then((response) => {
+        // If request is good...
+        // - update state to indicate user is authenticated
+        dispatch({ type: AUTH_SIGNIN });
+        // - save the JWT token
+        localStorage.setItem('token', response.data.token);
+        // - redirect the user to the feature page
+        browserHistory.push('/feature');
+      })
+      .catch(error => dispatch(authError(error.response.data.message)))
   }
 }
 
@@ -31,21 +49,6 @@ export function authSignout() {
   localStorage.removeItem('token');
 
   return { type: AUTH_SIGNOUT };
-}
-
-export const AUTH_SIGNUP = 'AUTH_SIGNUP'
-
-export function authSignup({ email, password, name }) {
-  return function(dispatch) {
-    // Submit email/password to the server
-    axios.post(`${API_URI_PREFIX}/signup`, { email, password, name })
-      .then((response) => {
-        dispatch({ type: AUTH_SIGNIN });
-        localStorage.setItem('token', response.data.token);
-        browserHistory.push('/feature');
-      })
-      .catch(error => dispatch(authError(error.response.data.message)))
-  }
 }
 
 export const AUTH_ERROR = 'AUTH_ERROR';
