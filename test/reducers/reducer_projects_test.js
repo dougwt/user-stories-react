@@ -4,24 +4,55 @@ import { FETCH_PROJECT, FETCH_PROJECTS } from '../../src/actions';
 
 describe('projectsReducer', () => {
   it('handles action with unknown type', () => {
-    expect(projectsReducer(undefined, {})).to.eql({ all: [], project: null });
+    const state = undefined;
+    const action = {};
+    expect(projectsReducer(state, action)).to.eql({ all: [], project: null });
   });
 
-  // TODO: Find a way to test async requests
-  xit('handles action of type FETCH_PROJECT', () => {
+  it('handles action of type FETCH_PROJECT', () => {
+    const state = undefined;
+    const project = {
+      _id: '',
+      name: "My Example",
+      slug: "my-example-project",
+      roles: [{ name: "developer" }, { name: "tester" }],
+      owner: null
+    }
     const action = {
       type: FETCH_PROJECT,
-      payload: null  // async request
-    }
-    expect(projectsReducer(undefined, action))
+      payload: {
+        data: {
+          data: project
+        }
+      }
+    };
+    expect(projectsReducer(state, action)).to.eql({ all: [], project: project });
   });
 
-  // TODO: Find a way to test async requests
-  xit('handles action of type FETCH_PROJECTS', () => {
+  it('handles action of type FETCH_PROJECTS', () => {
+    const state = undefined;
+    const projects = [
+      {
+        _id: "588bb00b627569fc58ed44b6",
+        name: "Test Project 1",
+        slug: "test-project-1",
+        roles: [{ name: "developer" }, { name: "tester" }]
+      },
+      {
+        _id: "588bb00b627569fc58ed44b7",
+        name: "Test Project 2",
+        slug: "test-project-2",
+        roles: [{ name: "developer" }, { name: "tester" }]
+      }
+    ]
     const action = {
       type: FETCH_PROJECTS,
-      payload: null  // async request
-    }
-    expect(projectsReducer(undefined, action))
+      payload: {
+        data: {
+          data: projects
+        }
+      }
+    };
+    expect(projectsReducer(state, action)).to.eql({ all: projects, project: null });
   });
 });
