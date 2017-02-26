@@ -59,7 +59,7 @@ export function authError(error) {
 
 export const FETCH_MESSAGE = 'FETCH_MESSAGE';
 
-export function fetchMessage(error) {
+export function fetchMessage() {
   const request = axios.get(`${API_URI_PREFIX}/auth_test`, {
     headers: { authorization: localStorage.getItem('token') }
   })

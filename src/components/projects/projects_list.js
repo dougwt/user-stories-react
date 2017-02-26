@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import { fetchProjects } from '../../actions'
 
-class ProjectsIndex extends Component {
+class ProjectsList extends Component {
   componentWillMount() {
     this.props.fetchProjects();
   }
@@ -26,7 +26,7 @@ class ProjectsIndex extends Component {
 
   render() {
     return (
-      <div>
+      <div className="projects-list">
         <h3>Projects</h3>
 
         <ul className="list-group">
@@ -47,4 +47,4 @@ function mapStateToProps(state) {
   return { projects: state.projects.all }
 }
 
-export default connect(mapStateToProps, { fetchProjects })(ProjectsIndex)
+export default connect(mapStateToProps, { fetchProjects })(ProjectsList)

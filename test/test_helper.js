@@ -13,9 +13,10 @@ import reducers from '../src/reducers'
 // Set up testing environment to run like a browser in the command line
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
 global.window = document.defaultView;
+global.localStorage = document.localStorage;
 if (!global.localStorage) {
   global.localStorage = {
-    getItem() { return '{}'; },
+    getItem(token) { return token; },
     removeItem() { return '{}'; },
     setItem() {}
   };

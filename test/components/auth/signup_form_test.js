@@ -40,6 +40,7 @@ describe('components/auth/SignupForm' , () => {
     expect(component.find('button[type=submit]')).to.exist;
   });
 
+  // TODO: Find a way to test form error messages
   xit('shows a error message alert', () => {
     expect(component.find('.alert')).to.exist;
   });

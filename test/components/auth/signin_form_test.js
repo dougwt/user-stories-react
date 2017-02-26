@@ -5,7 +5,7 @@ describe('components/auth/SigninForm' , () => {
   let component;
 
   beforeEach(() => {
-    component = renderComponent(SigninForm);
+    component = renderComponent(SigninForm, { errorMessage: 'Test error' });
   });
 
   it('renders something', () => {
@@ -32,7 +32,9 @@ describe('components/auth/SigninForm' , () => {
     expect(component.find('button[type=submit]')).to.exist;
   });
 
+  // TODO: Find a way to test form error messages
   xit('shows a error message alert', () => {
+    expect(component).to.contain('Test error');
     expect(component.find('.alert')).to.exist;
   });
 });
