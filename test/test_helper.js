@@ -33,7 +33,7 @@ const createStoreWithMiddleware = applyMiddleware(
   promise,
   reduxThunk
 )(createStore)
-const store = createStoreWithMiddleware(reducers);
+export const store = createStoreWithMiddleware(reducers);
 function renderComponent(ComponentClass, props, state) {
   const componentInstance = TestUtils.renderIntoDocument(
     <Provider store={store}>
