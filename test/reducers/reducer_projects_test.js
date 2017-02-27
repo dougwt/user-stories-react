@@ -1,6 +1,6 @@
 import { expect } from '../test_helper';
 import projectsReducer from '../../src/reducers/reducer_projects';
-import { FETCH_PROJECT, FETCH_PROJECTS } from '../../src/actions';
+import * as types from '../../src/actions/types';
 
 describe('projectsReducer', () => {
   it('handles action with unknown type', () => {
@@ -19,7 +19,7 @@ describe('projectsReducer', () => {
       owner: null
     }
     const action = {
-      type: FETCH_PROJECT,
+      type: types.FETCH_PROJECT,
       payload: {
         data: {
           data: project
@@ -46,7 +46,7 @@ describe('projectsReducer', () => {
       }
     ]
     const action = {
-      type: FETCH_PROJECTS,
+      type: types.FETCH_PROJECTS,
       payload: {
         data: {
           data: projects

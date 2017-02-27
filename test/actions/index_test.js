@@ -5,8 +5,9 @@ import sinon from 'sinon';
 import * as router from 'react-router';
 
 import { expect } from '../test_helper';
-import * as actions from '../../src/actions'
-import { API_URI_PREFIX } from '../../src/config'
+import * as actions from '../../src/actions';
+import * as types from '../../src/actions/types';
+import { API_URI_PREFIX } from '../../src/config';
 
 const middlewares = [ promise ]
 const mockStore = configureMockStore(middlewares)
@@ -52,7 +53,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.AUTH_SIGNIN);
+      expect(action.type).to.equal(types.AUTH_SIGNIN);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -96,7 +97,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.AUTH_SIGNIN);
+      expect(action.type).to.equal(types.AUTH_SIGNIN);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -111,7 +112,7 @@ describe('actions', () => {
       action = actions.authSignout();
     });
     it('has the correct type', () => {
-      expect(action.type).to.equal(actions.AUTH_SIGNOUT);
+      expect(action.type).to.equal(types.AUTH_SIGNOUT);
     });
     it('has the correct payload', () => {
       expect(action.payload).to.be.undefined;
@@ -124,7 +125,7 @@ describe('actions', () => {
       action = actions.authError('test error');
     });
     it('has the correct type', () => {
-      expect(action.type).to.equal(actions.AUTH_ERROR);
+      expect(action.type).to.equal(types.AUTH_ERROR);
     });
     it('has the correct payload', () => {
       expect(action.payload).to.equal('test error')
@@ -152,7 +153,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.FETCH_MESSAGE);
+      expect(action.type).to.equal(types.FETCH_MESSAGE);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -204,7 +205,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.FETCH_PROJECTS);
+      expect(action.type).to.equal(types.FETCH_PROJECTS);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -248,7 +249,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.CREATE_PROJECT);
+      expect(action.type).to.equal(types.CREATE_PROJECT);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -292,7 +293,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.FETCH_PROJECT);
+      expect(action.type).to.equal(types.FETCH_PROJECT);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);
@@ -323,7 +324,7 @@ describe('actions', () => {
     it('has the correct type', () => {
       expect(newActions.length).to.equal(1);
       const action = newActions[0];
-      expect(action.type).to.equal(actions.DELETE_PROJECT);
+      expect(action.type).to.equal(types.DELETE_PROJECT);
     });
     it('has the correct payload', () => {
       expect(newActions.length).to.equal(1);

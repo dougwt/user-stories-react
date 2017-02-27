@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
-import { API_URI_PREFIX } from '../config'
 
-export const AUTH_SIGNIN = 'AUTH_SIGNIN';
+import { API_URI_PREFIX } from '../config'
+import * as types from './types'
 
 export function authSignin({ email, password }) {
   return function(dispatch) {
@@ -11,7 +11,7 @@ export function authSignin({ email, password }) {
       .then((response) => {
         // If request is good...
         // - update state to indicate user is authenticated
-        dispatch({ type: AUTH_SIGNIN });
+        dispatch({ type: types.AUTH_SIGNIN });
         // - save the JWT token
         localStorage.setItem('token', response.data.token);
         // - redirect to the route '/home'
@@ -33,7 +33,7 @@ export function authSignup({ email, password, name }) {
       .then((response) => {
         // If request is good...
         // - update state to indicate user is authenticated
-        dispatch({ type: AUTH_SIGNIN });
+        dispatch({ type: types.AUTH_SIGNIN });
         // - save the JWT token
         localStorage.setItem('token', response.data.token);
         // - redirect the user to the feature page
@@ -43,24 +43,18 @@ export function authSignup({ email, password, name }) {
   }
 }
 
-export const AUTH_SIGNOUT = 'AUTH_SIGNOUT';
-
 export function authSignout() {
   localStorage.removeItem('token');
 
-  return { type: AUTH_SIGNOUT };
+  return { type: types.AUTH_SIGNOUT };
 }
-
-export const AUTH_ERROR = 'AUTH_ERROR';
 
 export function authError(error) {
   return {
-    type: AUTH_ERROR,
+    type: types.AUTH_ERROR,
     payload: error
   };
 }
-
-export const FETCH_MESSAGE = 'FETCH_MESSAGE';
 
 export function fetchMessage() {
   const request = axios.get(`${API_URI_PREFIX}/auth_test`, {
@@ -68,12 +62,10 @@ export function fetchMessage() {
   })
 
   return {
-    type: FETCH_MESSAGE,
+    type: types.FETCH_MESSAGE,
     payload: request
   }
 }
-
-export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 
 export function fetchProjects() {
   const request = axios.get(`${API_URI_PREFIX}/projects`, {
@@ -81,12 +73,10 @@ export function fetchProjects() {
   })
 
   return {
-    type: FETCH_PROJECTS,
+    type: types.FETCH_PROJECTS,
     payload: request
   };
 }
-
-export const CREATE_PROJECT = 'CREATE_PROJECT';
 
 export function createProject(props) {
   const request = axios.post(`${API_URI_PREFIX}/projects`, props, {
@@ -94,12 +84,10 @@ export function createProject(props) {
   })
 
   return {
-    type: CREATE_PROJECT,
+    type: types.CREATE_PROJECT,
     payload: request
   };
 }
-
-export const FETCH_PROJECT = 'FETCH_PROJECT'
 
 export function fetchProject(id) {
   const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
@@ -107,12 +95,10 @@ export function fetchProject(id) {
   })
 
   return {
-    type: FETCH_PROJECT,
+    type: types.FETCH_PROJECT,
     payload: request
   }
 }
-
-export const DELETE_PROJECT = 'DELETE_PROJECT'
 
 export function deleteProject(id) {
   const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
@@ -120,7 +106,7 @@ export function deleteProject(id) {
   })
 
   return {
-    type: DELETE_PROJECT,
+    type: types.DELETE_PROJECT,
     payload: request
   }
 }
