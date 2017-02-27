@@ -1,7 +1,7 @@
 import { renderComponent , expect } from '../../test_helper';
 import SigninForm from '../../../src/components/auth/signin_form';
-import { authError } from '../../../src/actions'
-import { store } from '../../test_helper'
+import { authError } from '../../../src/actions';
+import { store } from '../../test_helper';
 
 describe('components/auth/SigninForm' , () => {
   let component;
@@ -36,7 +36,7 @@ describe('components/auth/SigninForm' , () => {
 
   it('shows a error message alert', () => {
     const action = authError('Test error');
-    store.dispatch(action)
+    store.dispatch(action);
     expect(component).to.contain('Test error');
     expect(component.find('.alert')).to.exist;
   });

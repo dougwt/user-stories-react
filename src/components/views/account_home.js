@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ProjectsList from '../projects/projects_list'
+import ProjectsList from '../projects/projects_list';
 
 export default () => {
   return (
@@ -9,5 +9,5 @@ export default () => {
 
       <ProjectsList />
     </div>
-  )
-}
+  );
+};

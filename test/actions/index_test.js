@@ -1,5 +1,5 @@
 import configureMockStore from 'redux-mock-store'
-import nock from 'nock'
+import nock from 'nock';
 import promise from 'redux-promise';
 import sinon from 'sinon';
 import * as router from 'react-router';
@@ -41,7 +41,6 @@ describe('actions', () => {
       action = action(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
-          // console.log('newActions:', newActions)
           expect(browserHistoryPushStub).to.have.been.calledOnce;
           browserHistoryPushStub.restore();
           done();

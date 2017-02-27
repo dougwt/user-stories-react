@@ -1,36 +1,31 @@
-import configureMockStore from 'redux-mock-store';
 import nock from 'nock';
-import promise from 'redux-promise';
 
 import { renderComponent , expect } from '../../test_helper';
-import ProjectsList from '../../../src/components/projects/projects_list'
-import { API_URI_PREFIX } from '../../../src/config'
-
-const middlewares = [ promise ]
-const mockStore = configureMockStore(middlewares)
+import ProjectsList from '../../../src/components/projects/projects_list';
+import { API_URI_PREFIX } from '../../../src/config';
 
 describe('components/projects/ProjectsList' , () => {
   let data, component;
 
   beforeEach(() => {
     data = {
-      "status": "success",
-      "data": [
+      'status': 'success',
+      'data': [
         {
-          "_id": "588bb00b627569fc58ed44b6",
-          "_createdAt": "2017-01-27T20:39:39.225Z",
-          "_updatedAt": "2017-01-27T20:39:39.225Z",
-          "name": "Test Project 1",
-          "slug": "test-project-1",
-          "roles": [{ "name": "developer" }, { "name": "tester" }]
+          '_id': '588bb00b627569fc58ed44b6',
+          '_createdAt': '2017-01-27T20:39:39.225Z',
+          '_updatedAt': '2017-01-27T20:39:39.225Z',
+          'name': 'Test Project 1',
+          'slug': 'test-project-1',
+          'roles': [{ 'name': 'developer' }, { 'name': 'tester' }]
         },
         {
-          "_id": "588bb00b627569fc58ed44b7",
-          "_createdAt": "2017-01-27T20:39:39.225Z",
-          "_updatedAt": "2017-01-27T20:39:39.225Z",
-          "name": "Test Project 2",
-          "slug": "test-project-2",
-          "roles": [{ "name": "developer" }, { "name": "tester" }]
+          '_id': '588bb00b627569fc58ed44b7',
+          '_createdAt': '2017-01-27T20:39:39.225Z',
+          '_updatedAt': '2017-01-27T20:39:39.225Z',
+          'name': 'Test Project 2',
+          'slug': 'test-project-2',
+          'roles': [{ 'name': 'developer' }, { 'name': 'tester' }]
         }
       ]
     };

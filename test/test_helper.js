@@ -7,12 +7,11 @@ import jsdom from 'jsdom';
 import _$ from 'jquery';
 import chai, { expect } from 'chai';
 import chaiJquery from 'chai-jquery';
-import sinonChai from 'sinon-chai'
+import sinonChai from 'sinon-chai';
 import promise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
-// import configureMockStore from 'redux-mock-store'
 
-import reducers from '../src/reducers'
+import reducers from '../src/reducers';
 
 // Set up testing environment to run like a browser in the command line
 global.document = jsdom.jsdom('<!doctype html><html><body></body></html>');
@@ -32,7 +31,8 @@ const $ = _$(global.window);
 const createStoreWithMiddleware = applyMiddleware(
   promise,
   reduxThunk
-)(createStore)
+)(createStore);
+// createStore(reducers, state)
 export const store = createStoreWithMiddleware(reducers);
 function renderComponent(ComponentClass, props, state) {
   const componentInstance = TestUtils.renderIntoDocument(
@@ -50,7 +50,7 @@ $.fn.simulate = function(eventName, value) {
     this.val(value);
   }
   TestUtils.Simulate[eventName](this[0]);
-}
+};
 
 // Set up chai-jquery
 chaiJquery(chai, chai.util, $);

@@ -13,11 +13,11 @@ describe('projectsReducer', () => {
     const state = undefined;
     const project = {
       _id: '',
-      name: "My Example",
-      slug: "my-example-project",
-      roles: [{ name: "developer" }, { name: "tester" }],
+      name: 'My Example',
+      slug: 'my-example-project',
+      roles: [{ name: 'developer' }, { name: 'tester' }],
       owner: null
-    }
+    };
     const action = {
       type: types.FETCH_PROJECT,
       payload: {
@@ -33,18 +33,18 @@ describe('projectsReducer', () => {
     const state = undefined;
     const projects = [
       {
-        _id: "588bb00b627569fc58ed44b6",
-        name: "Test Project 1",
-        slug: "test-project-1",
-        roles: [{ name: "developer" }, { name: "tester" }]
+        _id: '588bb00b627569fc58ed44b6',
+        name: 'Test Project 1',
+        slug: 'test-project-1',
+        roles: [{ name: 'developer' }, { name: 'tester' }]
       },
       {
-        _id: "588bb00b627569fc58ed44b7",
-        name: "Test Project 2",
-        slug: "test-project-2",
-        roles: [{ name: "developer" }, { name: "tester" }]
+        _id: '588bb00b627569fc58ed44b7',
+        name: 'Test Project 2',
+        slug: 'test-project-2',
+        roles: [{ name: 'developer' }, { name: 'tester' }]
       }
-    ]
+    ];
     const action = {
       type: types.FETCH_PROJECTS,
       payload: {

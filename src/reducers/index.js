@@ -8,6 +8,6 @@ const rootReducer = combineReducers({
   auth: authReducer,
   form: formReducer,
   projects: projectsReducer
-})
+});
 
 export default rootReducer;

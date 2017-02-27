@@ -6,9 +6,9 @@ import { Router, browserHistory } from 'react-router';
 import promise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
 
-import routes from './routes'
-import reducers from './reducers'
-import { AUTH_SIGNIN } from './actions'
+import routes from './routes';
+import reducers from './reducers';
+import { AUTH_SIGNIN } from './actions';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
@@ -16,14 +16,14 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 const createStoreWithMiddleware = applyMiddleware(
   promise,
   reduxThunk
-)(createStore)
+)(createStore);
 const store = createStoreWithMiddleware(reducers);
 
 const token = localStorage.getItem('token');
 // If we have a token, consider the user to be signed in.
 if (token) {
   // we need to update application state
-  store.dispatch({ type: AUTH_SIGNIN })
+  store.dispatch({ type: AUTH_SIGNIN });
 }
 
 ReactDOM.render(

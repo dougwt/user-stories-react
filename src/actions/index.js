@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { browserHistory } from 'react-router';
 
-import { API_URI_PREFIX } from '../config'
-import * as types from './types'
+import { API_URI_PREFIX } from '../config';
+import * as types from './types';
 
 export function authSignin({ email, password }) {
   return function(dispatch) {
@@ -17,13 +17,12 @@ export function authSignin({ email, password }) {
         // - redirect to the route '/home'
         browserHistory.push('/home');
       })
-      .catch((err) => {
-        console.log('err:', err)
+      .catch(() => {
         // If request is bad...
         // - show an error to the user
         dispatch(authError('Bad Login Info'));
       });
-  }
+  };
 }
 
 export function authSignup({ email, password, name }) {
@@ -39,8 +38,8 @@ export function authSignup({ email, password, name }) {
         // - redirect the user to the feature page
         browserHistory.push('/feature');
       })
-      .catch(error => dispatch(authError(error.response.data.message)))
-  }
+      .catch(error => dispatch(authError(error.response.data.message)));
+  };
 }
 
 export function authSignout() {
@@ -59,18 +58,18 @@ export function authError(error) {
 export function fetchMessage() {
   const request = axios.get(`${API_URI_PREFIX}/auth_test`, {
     headers: { authorization: localStorage.getItem('token') }
-  })
+  });
 
   return {
     type: types.FETCH_MESSAGE,
     payload: request
-  }
+  };
 }
 
 export function fetchProjects() {
   const request = axios.get(`${API_URI_PREFIX}/projects`, {
     headers: { authorization: localStorage.getItem('token') }
-  })
+  });
 
   return {
     type: types.FETCH_PROJECTS,
@@ -81,7 +80,7 @@ export function fetchProjects() {
 export function createProject(props) {
   const request = axios.post(`${API_URI_PREFIX}/projects`, props, {
     headers: { authorization: localStorage.getItem('token') }
-  })
+  });
 
   return {
     type: types.CREATE_PROJECT,
@@ -92,21 +91,21 @@ export function createProject(props) {
 export function fetchProject(id) {
   const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
     headers: { authorization: localStorage.getItem('token') }
-  })
+  });
 
   return {
     type: types.FETCH_PROJECT,
     payload: request
-  }
+  };
 }
 
 export function deleteProject(id) {
   const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
     headers: { authorization: localStorage.getItem('token') }
-  })
+  });
 
   return {
     type: types.DELETE_PROJECT,
     payload: request
-  }
+  };
 }
