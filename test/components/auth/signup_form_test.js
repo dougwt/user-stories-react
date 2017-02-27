@@ -1,5 +1,7 @@
 import { renderComponent , expect } from '../../test_helper';
 import SignupForm from '../../../src/components/auth/signup_form';
+import { authError } from '../../../src/actions';
+import { store } from '../../test_helper';
 
 describe('components/auth/SignupForm' , () => {
   let component;
@@ -40,7 +42,10 @@ describe('components/auth/SignupForm' , () => {
     expect(component.find('button[type=submit]')).to.exist;
   });
 
-  xit('shows a error message alert', () => {
+  it('shows a error message alert', () => {
+    const action = authError('Test error');
+    store.dispatch(action);
+    expect(component).to.contain('Test error');
     expect(component.find('.alert')).to.exist;
   });
 });

@@ -1,13 +1,13 @@
 import React from 'react';
 
-import ProjectsIndex from '../projects/projects_index'
+import ProjectsList from '../projects/projects_list';
 
 export default () => {
   return (
     <div>
       <h1>My Account</h1>
 
-      <ProjectsIndex />
+      <ProjectsList />
     </div>
-  )
-}
+  );
+};

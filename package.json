@@ -15,12 +15,18 @@
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
     "coveralls": "^2.11.16",
+    "eslint": "^3.16.1",
+    "eslint-plugin-react": "^6.10.0",
     "istanbul": "^1.1.0-alpha.1",
     "jquery": "^3.1.1",
     "jsdom": "^9.11.0",
     "mocha": "^3.2.0",
+    "nock": "^9.0.7",
     "react-addons-test-utils": "^15.4.2",
-    "react-scripts": "0.8.5"
+    "react-scripts": "0.8.5",
+    "redux-mock-store": "^1.2.2",
+    "sinon": "^1.17.7",
+    "sinon-chai": "^2.8.0"
   },
   "dependencies": {
     "axios": "^0.15.3",

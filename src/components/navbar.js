@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Navbar, Nav, NavItem, MenuItem, NavDropdown } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -7,12 +7,12 @@ class HeaderNavbar extends Component {
 
   renderAuthLinks() {
     if (this.props.authenticated) {
-      return <NavItem eventKey={4.1} href="/signout">Sign Out</NavItem>
+      return <NavItem eventKey={4.1} href="/signout">Sign Out</NavItem>;
     } else {
       return [
         <NavItem key={1} eventKey={4.2} href="/signin">Sign In</NavItem>,
         <NavItem key={2} eventKey={4.3} href="/signup">Sign Up</NavItem>
-      ]
+      ];
     }
   }
 
@@ -37,14 +37,14 @@ class HeaderNavbar extends Component {
         {this.renderAuthLinks()}
       </Nav>
       </Navbar>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated
-  }
+  };
 }
 
-export default connect(mapStateToProps)(HeaderNavbar)
+export default connect(mapStateToProps)(HeaderNavbar);

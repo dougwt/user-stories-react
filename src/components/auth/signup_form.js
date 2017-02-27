@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { authSignup } from '../../actions'
-import InputField from '../input_field'
+
+import { authSignup } from '../../actions';
+import InputField from '../input_field';
 
 class SignupForm extends Component {
 
@@ -63,7 +64,7 @@ class SignupForm extends Component {
           <button type="submit" className="btn btn-default">Sign up</button>
         </form>
       </div>
-    )
+    );
   }
 
 }
@@ -94,6 +95,6 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-SignupForm = reduxForm({form: 'auth-signup', validate})(SignupForm)
-SignupForm = connect(mapStateToProps, { authSignup })(SignupForm)
-export default SignupForm
+SignupForm = reduxForm({form: 'auth-signup', validate})(SignupForm);
+SignupForm = connect(mapStateToProps, { authSignup })(SignupForm);
+export default SignupForm;

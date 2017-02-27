@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import { fetchProject } from '../../actions'
+import { fetchProject } from '../../actions';
 
 class ProjectsShow extends Component {
   componentWillMount() {
@@ -9,10 +9,10 @@ class ProjectsShow extends Component {
   }
 
   render() {
-    const { project } = this.props
+    const { project } = this.props;
 
     if(!project) {
-      return <div>Loading '{this.props.params.id}' ...</div>
+      return <div>Loading '{this.props.params.id}' ...</div>;
     }
 
     return (
@@ -21,13 +21,13 @@ class ProjectsShow extends Component {
         <p><strong>Slug:</strong> {project.slug}</p>
         <p><strong>Roles:</strong> {project.roles.map((role) => role.name).join(', ')}</p>
       </div>
-    )
+    );
   }
 }
 
 function mapStateToProps(state) {
-  return { project: state.projects.project }
+  return { project: state.projects.project };
 }
 
 
-export default connect(mapStateToProps, { fetchProject })(ProjectsShow)
+export default connect(mapStateToProps, { fetchProject })(ProjectsShow);

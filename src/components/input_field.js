@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 export default (field) => {
   return (
@@ -13,5 +13,5 @@ export default (field) => {
       </div>
 
     </div>
-  )
-}
+  );
+};

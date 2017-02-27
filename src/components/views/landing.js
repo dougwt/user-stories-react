@@ -7,5 +7,5 @@ export default () => {
 
       Welcome to the website! Please sign in.
     </div>
-  )
-}
+  );
+};

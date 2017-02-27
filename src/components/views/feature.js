@@ -16,4 +16,4 @@ class Feature extends Component {
 
 }
 
-export default connect(null, { fetchMessage })(Feature)
+export default connect(null, { fetchMessage })(Feature);

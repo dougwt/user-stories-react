@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { authSignin } from '../../actions'
-import InputField from '../input_field'
+
+import { authSignin } from '../../actions';
+import InputField from '../input_field';
 
 class SigninForm extends Component {
 
   handleFormSubmit({ email, password }) {
-    this.props.authSignin({ email, password })
+    this.props.authSignin({ email, password });
   }
 
   renderAlert() {
@@ -49,7 +50,7 @@ class SigninForm extends Component {
           <button type="submit" className="btn btn-default">Sign in</button>
         </form>
       </div>
-    )
+    );
   }
 
 }
@@ -71,6 +72,6 @@ function mapStateToProps(state) {
   return { errorMessage: state.auth.error };
 }
 
-SigninForm = reduxForm({form: 'auth-signin', validate})(SigninForm)
-SigninForm = connect(mapStateToProps, { authSignin })(SigninForm)
-export default SigninForm
+SigninForm = reduxForm({form: 'auth-signin', validate})(SigninForm);
+SigninForm = connect(mapStateToProps, { authSignin })(SigninForm);
+export default SigninForm;
