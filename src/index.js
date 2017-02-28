@@ -8,7 +8,7 @@ import reduxThunk from 'redux-thunk';
 
 import routes from './routes';
 import reducers from './reducers';
-import { AUTH_SIGNIN } from './actions';
+import { AUTH_SIGNIN } from './actions/types';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
