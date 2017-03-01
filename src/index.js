@@ -17,9 +17,9 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 
 const reduxLogger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(
+  reduxLogger,
   reduxPromise,
   reduxThunk,
-  reduxLogger
 )(createStore);
 const store = createStoreWithMiddleware(reducers, composeWithDevTools());
 

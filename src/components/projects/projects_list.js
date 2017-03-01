@@ -10,6 +10,10 @@ class ProjectsList extends Component {
   }
 
   renderProjects() {
+    // TODO: Figure out why this breaks tests :(
+    // if (this.props.isLoading) {
+    //   return <h1>Loading...</h1>;
+    // }
     return this.props.projects.map((project) => {
       return (
         <li className="list-group-item" key={project._id}>
@@ -44,7 +48,11 @@ class ProjectsList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { projects: state.projects.all };
+  return {
+    projects: state.projects.all,
+    isLoading: state.projects.isLoading,
+    error: state.projects.error
+  };
 }
 
 export default connect(mapStateToProps, { fetchProjects })(ProjectsList);

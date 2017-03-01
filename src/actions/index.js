@@ -67,13 +67,35 @@ export function fetchMessage() {
 }
 
 export function fetchProjects() {
-  const request = axios.get(`${API_URI_PREFIX}/projects`, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+  return function(dispatch) {
+    dispatch(fetchProjectsRequest());
+    const request = axios.get(`${API_URI_PREFIX}/projects`, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
 
+    return request
+      .then(res => dispatch(fetchProjectsSuccess(res)))
+      .catch(err => dispatch(fetchProjectsFailure(err)));
+  };
+}
+
+export function fetchProjectsRequest() {
   return {
-    type: types.FETCH_PROJECTS,
-    payload: request
+    type: types.FETCH_PROJECTS_REQUEST
+  };
+}
+
+export function fetchProjectsSuccess(payload) {
+  return {
+    type: types.FETCH_PROJECTS_SUCCESS,
+    payload
+  };
+}
+
+export function fetchProjectsFailure(error) {
+  return {
+    type: types.FETCH_PROJECTS_FAILURE,
+    payload: error
   };
 }
 

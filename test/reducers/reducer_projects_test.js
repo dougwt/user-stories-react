@@ -6,7 +6,12 @@ describe('projectsReducer', () => {
   it('handles action with unknown type', () => {
     const state = undefined;
     const action = {};
-    expect(projectsReducer(state, action)).to.eql({ all: [], project: null });
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      project: null,
+      isLoading: false,
+      error: null
+    });
   });
 
   it('handles action of type FETCH_PROJECT', () => {
@@ -15,8 +20,7 @@ describe('projectsReducer', () => {
       _id: '',
       name: 'My Example',
       slug: 'my-example-project',
-      roles: [{ name: 'developer' }, { name: 'tester' }],
-      owner: null
+      roles: [{ name: 'developer' }, { name: 'tester' }]
     };
     const action = {
       type: types.FETCH_PROJECT,
@@ -26,10 +30,26 @@ describe('projectsReducer', () => {
         }
       }
     };
-    expect(projectsReducer(state, action)).to.eql({ all: [], project: project });
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      project: project,
+      isLoading: false,
+      error: null
+    });
   });
 
-  it('handles action of type FETCH_PROJECTS', () => {
+  it('handles action of type FETCH_PROJECTS_REQUEST', () => {
+    const state = undefined;
+    const action = { type: types.FETCH_PROJECTS_REQUEST };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      project: null,
+      isLoading: true,
+      error: null
+    });
+  });
+
+  it('handles action of type FETCH_PROJECTS_SUCCESS', () => {
     const state = undefined;
     const projects = [
       {
@@ -46,13 +66,32 @@ describe('projectsReducer', () => {
       }
     ];
     const action = {
-      type: types.FETCH_PROJECTS,
+      type: types.FETCH_PROJECTS_SUCCESS,
       payload: {
         data: {
           data: projects
         }
       }
     };
-    expect(projectsReducer(state, action)).to.eql({ all: projects, project: null });
+    expect(projectsReducer(state, action)).to.eql({
+      all: projects,
+      project: null,
+      isLoading: false,
+      error: null
+    });
+  });
+
+  it('handles action of type FETCH_PROJECTS_FAILURE', () => {
+    const state = undefined;
+    const action = {
+      type: types.FETCH_PROJECTS_FAILURE,
+      payload: 'This is a sample error message.'
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      project: null,
+      isLoading: false,
+      error: 'This is a sample error message.'
+    });
   });
 });
