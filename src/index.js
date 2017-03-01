@@ -2,9 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { Router, browserHistory } from 'react-router';
-import promise from 'redux-promise';
+import reduxPromise from 'redux-promise';
 import reduxThunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 
 import routes from './routes';
 import reducers from './reducers';
@@ -13,11 +15,13 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 
+const reduxLogger = createLogger();
 const createStoreWithMiddleware = applyMiddleware(
-  promise,
-  reduxThunk
+  reduxPromise,
+  reduxThunk,
+  reduxLogger
 )(createStore);
-const store = createStoreWithMiddleware(reducers);
+const store = createStoreWithMiddleware(reducers, composeWithDevTools());
 
 const token = localStorage.getItem('token');
 // If we have a token, consider the user to be signed in.
