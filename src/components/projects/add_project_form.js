@@ -3,8 +3,8 @@ import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
-import { createProject } from '../../actions'
-import InputField from '../input_field'
+import { createProject } from '../../actions';
+import InputField from '../input_field';
 
 import './add_project_form.css';
 
@@ -17,8 +17,8 @@ class AddProjectForm extends Component {
     this.props.createProject(props)
       .then(() => {
         // project has been created, navigate the user to account home.
-        this.context.router.push('/')
-      })
+        this.context.router.push('/');
+      });
   }
 
   render() {
@@ -46,7 +46,7 @@ class AddProjectForm extends Component {
           <button type="submit" className="btn btn-default">Create a new project</button>
         </form>
       </div>
-    )
+    );
   }
 }
 
@@ -54,15 +54,15 @@ function validate(values) {
   const errors = {};
 
   if (!values.name) {
-    errors.name = 'Enter a name'
+    errors.name = 'Enter a name';
   }
   if (!values.slug) {
-    errors.slug = 'Enter a slug'
+    errors.slug = 'Enter a slug';
   }
 
   return errors;
 }
 
-AddProjectForm = reduxForm({form: 'add-project', validate})(AddProjectForm)
-AddProjectForm = connect(null, { createProject })(AddProjectForm)
-export default AddProjectForm
+AddProjectForm = reduxForm({form: 'add-project', validate})(AddProjectForm);
+AddProjectForm = connect(null, { createProject })(AddProjectForm);
+export default AddProjectForm;
