@@ -4,12 +4,25 @@ import { Link } from 'react-router';
 
 import { fetchProjects } from '../../actions';
 
-class ProjectsList extends Component {
+export class ProjectsList extends Component {
+  static propTypes = {
+    fetchProjects: React.PropTypes.func,
+    isLoading: React.PropTypes.bool,
+    error: React.PropTypes.string,
+    projects: React.PropTypes.array
+  }
+
   componentWillMount() {
     this.props.fetchProjects();
   }
 
   renderProjects() {
+    if (this.props.isLoading) {
+      return <li className="list-group-item">Loading...</li>;
+    }
+    if(this.props.error) {
+      return <li className="list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
+    }
     return this.props.projects.map((project) => {
       return (
         <li className="list-group-item" key={project._id}>
@@ -44,7 +57,11 @@ class ProjectsList extends Component {
 }
 
 function mapStateToProps(state) {
-  return { projects: state.projects.all };
+  return {
+    projects: state.projects.all,
+    isLoading: state.projects.isLoading,
+    error: state.projects.error
+  };
 }
 
 export default connect(mapStateToProps, { fetchProjects })(ProjectsList);

@@ -4,6 +4,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 class HeaderNavbar extends Component {
+  static propTypes = {
+    authenticated: React.PropTypes.bool
+  }
 
   renderAuthLinks() {
     if (this.props.authenticated) {

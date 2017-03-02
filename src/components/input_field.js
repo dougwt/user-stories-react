@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default (field) => {
+export default function Inputfield(field) {
   return (
     <div className={`form-group ${field.meta.touched && field.meta.invalid ? 'has-error' : '' }`}>
 
@@ -14,4 +14,4 @@ export default (field) => {
 
     </div>
   );
-};
+}

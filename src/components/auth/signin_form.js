@@ -7,6 +7,13 @@ import { authSignin } from '../../actions';
 import InputField from '../input_field';
 
 class SigninForm extends Component {
+  static propTypes = {
+    email: React.PropTypes.string,
+    password: React.PropTypes.string,
+    authSignin: React.PropTypes.func,
+    errorMessage: React.PropTypes.string,
+    handleSubmit: React.PropTypes.func
+  }
 
   handleFormSubmit({ email, password }) {
     this.props.authSignin({ email, password });

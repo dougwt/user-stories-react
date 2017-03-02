@@ -7,6 +7,12 @@ import { authSignup } from '../../actions';
 import InputField from '../input_field';
 
 class SignupForm extends Component {
+  static propTypes = {
+    name: React.PropTypes.string,
+    authSignup: React.PropTypes.func,
+    errorMessage: React.PropTypes.string,
+    handleSubmit: React.PropTypes.func
+  }
 
   handleFormSubmit(formProps) {
     this.props.authSignup(formProps);

@@ -34,7 +34,7 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore);
 // createStore(reducers, state)
 export const store = createStoreWithMiddleware(reducers);
-function renderComponent(ComponentClass, props, state) {
+function renderComponent(ComponentClass, props) {
   const componentInstance = TestUtils.renderIntoDocument(
     <Provider store={store}>
       <ComponentClass {...props} />

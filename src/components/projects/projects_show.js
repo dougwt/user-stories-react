@@ -4,6 +4,12 @@ import { connect } from 'react-redux';
 import { fetchProject } from '../../actions';
 
 class ProjectsShow extends Component {
+  static propTypes = {
+    fetchProject: React.PropTypes.func,
+    project: React.PropTypes.object,
+    params: React.PropTypes.object
+  }
+
   componentWillMount() {
     this.props.fetchProject(this.props.params.id);
   }
