@@ -31,25 +31,29 @@ describe('components/projects/ProjectsShow' , () => {
     expect(component).to.have.class('projects-detail');
   });
 
-  // it('shows a project loading message', () => {
-  //   component = renderComponent(ProjectsShow, {
-  //     fetchProjects: () => {},
-  //     projects: data,
-  //     isLoading: true,
-  //     error: null });
-  //   expect(component.find('li').length).to.equal(1);
-  //   expect(component).to.contain('Loading...');
-  // });
+  it('shows a project loading message', () => {
+    component = renderComponent(ProjectsShow, {
+      fetchProject: () => {},
+      project: null,
+      params: { id: '588bb00b627569fc58ed44b6' },
+      isLoading: true,
+      error: null
+    });
+    expect(component.find('li').length).to.equal(0);
+    expect(component).to.contain('Loading 588bb00b627569fc58ed44b6...');
+  });
 
-  // it('shows a project error message', () => {
-  //   component = renderComponent(ProjectsShow, {
-  //     fetchProjects: () => {},
-  //     projects: data,
-  //     isLoading: false,
-  //     error: 'Error message.' });
-  //   expect(component.find('li').length).to.equal(1);
-  //   expect(component).to.contain('Unable to fetch projects. Error message.');
-  // });
+  it('shows a project error message', () => {
+    component = renderComponent(ProjectsShow, {
+      fetchProject: () => {},
+      project: null,
+      params: { id: '588bb00b627569fc58ed44b6' },
+      isLoading: false,
+      error: 'Error message.'
+    });
+    expect(component.find('li').length).to.equal(0);
+    expect(component).to.contain('Unable to fetch project. Error message.');
+  });
 
   it('shows a <li> for each role', () => {
     expect(component.find('li.role').length).to.equal(2);

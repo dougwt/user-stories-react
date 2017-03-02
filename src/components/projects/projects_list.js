@@ -7,9 +7,9 @@ import { fetchProjects } from '../../actions';
 export class ProjectsList extends Component {
   static propTypes = {
     fetchProjects: React.PropTypes.func,
+    projects: React.PropTypes.array,
     isLoading: React.PropTypes.bool,
-    error: React.PropTypes.string,
-    projects: React.PropTypes.array
+    error: React.PropTypes.string
   }
 
   componentWillMount() {
@@ -17,15 +17,15 @@ export class ProjectsList extends Component {
   }
 
   renderProjects() {
-    if (this.props.isLoading) {
-      return <li className="list-group-item">Loading...</li>;
-    }
     if(this.props.error) {
-      return <li className="list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
+      return <li className="project list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
+    }
+    if (this.props.isLoading) {
+      return <li className="project list-group-item">Loading...</li>;
     }
     return this.props.projects.map((project) => {
       return (
-        <li className="list-group-item" key={project._id}>
+        <li className="project list-group-item" key={project._id}>
           <span className="pull-right">{project.roles.map((role) => role.name).join(', ')}</span>
           <strong>
             <Link to={'projects/' + project._id}>
@@ -59,8 +59,8 @@ export class ProjectsList extends Component {
 function mapStateToProps(state) {
   return {
     projects: state.projects.all,
-    isLoading: state.projects.isLoading,
-    error: state.projects.error
+    isLoading: state.projects.all_isLoading,
+    error: state.projects.all_error
   };
 }
 

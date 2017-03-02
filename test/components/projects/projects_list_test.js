@@ -42,25 +42,25 @@ describe('components/projects/ProjectsList' , () => {
   it('shows a loading message', () => {
     component = renderComponent(ProjectsList, {
       fetchProjects: () => {},
-      projects: data,
+      projects: [],
       isLoading: true,
       error: null });
-    expect(component.find('li').length).to.equal(1);
+    expect(component.find('li.project').length).to.equal(1);
     expect(component).to.contain('Loading...');
   });
 
   it('shows a error message', () => {
     component = renderComponent(ProjectsList, {
       fetchProjects: () => {},
-      projects: data,
+      projects: [],
       isLoading: false,
       error: 'Error message.' });
-    expect(component.find('li').length).to.equal(1);
+    expect(component.find('li.project').length).to.equal(1);
     expect(component).to.contain('Unable to fetch projects. Error message.');
   });
 
   it('shows a <li> for each project', () => {
-    expect(component.find('li').length).to.equal(2);
+    expect(component.find('li.project').length).to.equal(2);
   });
 
   it('shows each project that is provided', () => {

@@ -4,7 +4,7 @@ import Navbar from './navbar';
 
 class App extends Component {
   static propTypes = {
-    children: React.PropTypes.array
+    children: React.PropTypes.node
   }
 
   render() {

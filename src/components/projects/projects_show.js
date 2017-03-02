@@ -7,6 +7,8 @@ export class ProjectsShow extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,
     project: React.PropTypes.object,
+    isLoading: React.PropTypes.bool,
+    error: React.PropTypes.string,
     params: React.PropTypes.object
   }
 
@@ -23,9 +25,11 @@ export class ProjectsShow extends Component {
 
   render() {
     const { project } = this.props;
-
-    if(!project) {
-      return <div>Loading '{this.props.params.id}' ...</div>;
+    if(this.props.error) {
+      return <div className="projects-detail">Unable to fetch project. {this.props.error.toString()}</div>;
+    }
+    if(this.props.isLoading || !project) {
+      return <div className="projects-detail">Loading {this.props.params.id}...</div>;
     }
 
     return (
@@ -45,8 +49,11 @@ export class ProjectsShow extends Component {
 }
 
 function mapStateToProps(state) {
-  return { project: state.projects.project };
+  return {
+    project: state.projects.project,
+    isLoading: state.projects.project_isLoading,
+    error: state.projects.project_error
+  };
 }
-
 
 export default connect(mapStateToProps, { fetchProject })(ProjectsShow);

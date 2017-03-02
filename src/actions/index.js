@@ -111,13 +111,35 @@ export function createProject(props) {
 }
 
 export function fetchProject(id) {
-  const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+  return function(dispatch) {
+    dispatch(fetchProjectRequest());
+    const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
 
+    return request
+      .then(res => dispatch(fetchProjectSuccess(res)))
+      .catch(err => dispatch(fetchProjectFailure(err)));
+  };
+}
+
+export function fetchProjectRequest() {
   return {
-    type: types.FETCH_PROJECT,
-    payload: request
+    type: types.FETCH_PROJECT_REQUEST
+  };
+}
+
+export function fetchProjectSuccess(payload) {
+  return {
+    type: types.FETCH_PROJECT_SUCCESS,
+    payload
+  };
+}
+
+export function fetchProjectFailure(error) {
+  return {
+    type: types.FETCH_PROJECT_FAILURE,
+    payload: error
   };
 }
 
