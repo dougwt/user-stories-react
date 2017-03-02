@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import { fetchProject } from '../../actions';
 
-class ProjectsShow extends Component {
+export class ProjectsShow extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,
     project: React.PropTypes.object,
@@ -14,6 +14,13 @@ class ProjectsShow extends Component {
     this.props.fetchProject(this.props.params.id);
   }
 
+  renderRoles(roles) {
+    if (roles < 1) {
+      return <li className="role">This project currently has no roles. Please create one.</li>;
+    }
+    return roles.map((role) => <li className="role" key={role.name}>{role.name}</li>);
+  }
+
   render() {
     const { project } = this.props;
 
@@ -22,10 +29,16 @@ class ProjectsShow extends Component {
     }
 
     return (
-      <div>
+      <div className="projects-detail">
         <p><strong>Name:</strong> {project.name}</p>
         <p><strong>Slug:</strong> {project.slug}</p>
-        <p><strong>Roles:</strong> {project.roles.map((role) => role.name).join(', ')}</p>
+        <p><strong>Owner:</strong> {project.owner}</p>
+
+        <p><strong>Roles:</strong></p>
+        <ul>{this.renderRoles(project.roles)}</ul>
+
+        <p><strong>Stories:</strong></p>
+        <ul><li className="story">???</li></ul>
       </div>
     );
   }
