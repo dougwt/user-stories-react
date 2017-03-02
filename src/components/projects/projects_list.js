@@ -11,9 +11,10 @@ export class ProjectsList extends Component {
 
   renderProjects() {
     if (this.props.isLoading) {
-      return (
-        <li className="list-group-item">Loading...</li>
-      );
+      return <li className="list-group-item">Loading...</li>;
+    }
+    if(this.props.error) {
+      return <li className="list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
     }
     return this.props.projects.map((project) => {
       return (
