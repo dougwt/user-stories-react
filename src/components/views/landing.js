@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default () => {
+export default function Landing() {
   return (
     <div>
       <h1>Hello</h1>
@@ -8,4 +8,4 @@ export default () => {
       Welcome to the website! Please sign in.
     </div>
   );
-};
+}
