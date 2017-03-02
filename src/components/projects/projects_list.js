@@ -4,16 +4,17 @@ import { Link } from 'react-router';
 
 import { fetchProjects } from '../../actions';
 
-class ProjectsList extends Component {
+export class ProjectsList extends Component {
   componentWillMount() {
     this.props.fetchProjects();
   }
 
   renderProjects() {
-    // TODO: Figure out why this breaks tests :(
-    // if (this.props.isLoading) {
-    //   return <h1>Loading...</h1>;
-    // }
+    if (this.props.isLoading) {
+      return (
+        <li className="list-group-item">Loading...</li>
+      );
+    }
     return this.props.projects.map((project) => {
       return (
         <li className="list-group-item" key={project._id}>
