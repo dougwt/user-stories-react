@@ -28,7 +28,7 @@ describe('components/projects/ProjectsList' , () => {
       fetchProjects: () => {},
       projects: data,
       isLoading: false,
-      error: '' });
+      error: null });
   });
 
   it('renders something', () => {
@@ -37,6 +37,26 @@ describe('components/projects/ProjectsList' , () => {
 
   it('has the correct class', () => {
     expect(component).to.have.class('projects-list');
+  });
+
+  it('shows a loading message', () => {
+    component = renderComponent(ProjectsList, {
+      fetchProjects: () => {},
+      projects: data,
+      isLoading: true,
+      error: null });
+    expect(component.find('li').length).to.equal(1);
+    expect(component).to.contain('Loading...');
+  });
+
+  it('shows a error message', () => {
+    component = renderComponent(ProjectsList, {
+      fetchProjects: () => {},
+      projects: data,
+      isLoading: false,
+      error: 'Error message.' });
+    expect(component.find('li').length).to.equal(1);
+    expect(component).to.contain('Unable to fetch projects. Error message.');
   });
 
   it('shows a <li> for each project', () => {
