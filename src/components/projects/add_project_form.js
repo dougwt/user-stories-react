@@ -9,6 +9,11 @@ import InputField from '../input_field';
 import './add_project_form.css';
 
 class AddProjectForm extends Component {
+  static propTypes = {
+    createProject: React.PropTypes.func,
+    handleSubmit: React.PropTypes.func
+  }
+
   static contextTypes = {
     router: PropTypes.object
   };

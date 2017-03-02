@@ -5,6 +5,13 @@ import { Link } from 'react-router';
 import { fetchProjects } from '../../actions';
 
 export class ProjectsList extends Component {
+  static propTypes = {
+    fetchProjects: React.PropTypes.func,
+    isLoading: React.PropTypes.bool,
+    error: React.PropTypes.string,
+    projects: React.PropTypes.array
+  }
+
   componentWillMount() {
     this.props.fetchProjects();
   }
