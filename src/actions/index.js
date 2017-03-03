@@ -164,3 +164,14 @@ export function createRole(props) {
     payload: request
   };
 }
+
+export function deleteRole(projectId, roleId) {
+  const request = axios.delete(`${API_URI_PREFIX}/projects/${projectId}/roles/${roleId}`, {
+    headers: { authorization: localStorage.getItem('token') }
+  });
+
+  return {
+    type: types.DELETE_ROLE,
+    payload: request
+  };
+}

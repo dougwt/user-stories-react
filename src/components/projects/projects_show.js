@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchProject } from '../../actions';
+import { fetchProject, deleteRole } from '../../actions';
 import AddRoleForm from './add_role_form.js';
 
 export class ProjectsShow extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,
+    deleteRole: React.PropTypes.func,
     project: React.PropTypes.object,
     isLoading: React.PropTypes.bool,
     error: React.PropTypes.string,
@@ -17,20 +18,50 @@ export class ProjectsShow extends Component {
     this.props.fetchProject(this.props.params.id);
   }
 
+  handleClick(roleId, e) {
+    e.preventDefault();
+    const projectId = this.props.params.id;
+
+    this.props.deleteRole(projectId, roleId)
+    .then(() => {
+      // role has been deleted
+      this.props.fetchProject(projectId);
+    });
+  }
+
   renderRoles(roles) {
     if (roles < 1) {
-      return <li className="role">This project currently has no roles. Please create one.</li>;
+      return (
+        <li className="role list-group-item">
+          <em>This project currently has no roles. Please create one.</em>
+        </li>
+      );
     }
-    return roles.map((role) => <li className="role" key={role.name}>{role.name}</li>);
+    return roles.map((role) => {
+      return (
+        <li className="role list-group-item" key={role.name}>
+          {role.name}
+          <button className="pull-right" onClick={this.handleClick.bind(this, role._id)}>delete</button>
+        </li>
+      );
+    });
   }
 
   render() {
     const { project } = this.props;
     if(this.props.error) {
-      return <div className="projects-detail">Unable to fetch project. {this.props.error.toString()}</div>;
+      return (
+        <div className="projects-detail">
+          Unable to fetch project. {this.props.error.toString()}
+        </div>
+      );
     }
     if(this.props.isLoading || !project) {
-      return <div className="projects-detail">Loading {this.props.params.id}...</div>;
+      return (
+        <div className="projects-detail">
+          Loading {this.props.params.id}...
+        </div>
+      );
     }
 
     return (
@@ -40,9 +71,11 @@ export class ProjectsShow extends Component {
         <p><strong>Owner:</strong> {project.owner}</p>
 
         <p><strong>Roles:</strong></p>
-        <ul>
+        <ul className="list-group">
+
           {this.renderRoles(project.roles)}
-          <li>
+
+          <li className="list-group-item">
             <AddRoleForm projectId={project.id}/>
           </li>
         </ul>
@@ -62,4 +95,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchProject })(ProjectsShow);
+export default connect(mapStateToProps, { fetchProject, deleteRole })(ProjectsShow);
