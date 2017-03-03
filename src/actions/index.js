@@ -155,7 +155,6 @@ export function fetchProjectFailure(error) {
 }
 
 export function createRole(props) {
-  console.log('props:', props);
   const request = axios.post(`${API_URI_PREFIX}/projects/${props.projectId}/roles`, props, {
     headers: { authorization: localStorage.getItem('token') }
   });

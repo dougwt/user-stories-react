@@ -25,7 +25,6 @@ export class AddRoleForm extends Component {
     this.props.createRole(props)
       .then(() => {
         // role has been created
-        console.log('Role added!');
         this.props.fetchProject(projectId);
       });
   }
@@ -54,12 +53,23 @@ export class AddRoleForm extends Component {
 
 }
 
+function validate(values) {
+  const errors = {};
+
+  if (!values.name) {
+    errors.name = 'Enter a name';
+  }
+
+  return errors;
+}
+
+
 function mapStateToProps(state) {
   return {
     project: state.projects.project
   };
 }
 
-AddRoleForm = reduxForm({form: 'add-role'})(AddRoleForm);
+AddRoleForm = reduxForm({form: 'add-role', validate})(AddRoleForm);
 AddRoleForm = connect(mapStateToProps, { createRole, fetchProject })(AddRoleForm);
 export default AddRoleForm;
