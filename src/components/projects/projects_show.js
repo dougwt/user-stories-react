@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { fetchProject } from '../../actions';
+import AddRoleForm from './add_role_form.js';
 
 export class ProjectsShow extends Component {
   static propTypes = {
@@ -39,7 +40,12 @@ export class ProjectsShow extends Component {
         <p><strong>Owner:</strong> {project.owner}</p>
 
         <p><strong>Roles:</strong></p>
-        <ul>{this.renderRoles(project.roles)}</ul>
+        <ul>
+          {this.renderRoles(project.roles)}
+          <li>
+            <AddRoleForm projectId={project.id}/>
+          </li>
+        </ul>
 
         <p><strong>Stories:</strong></p>
         <ul><li className="story">???</li></ul>

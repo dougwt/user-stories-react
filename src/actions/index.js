@@ -110,6 +110,17 @@ export function createProject(props) {
   };
 }
 
+export function deleteProject(id) {
+  const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
+    headers: { authorization: localStorage.getItem('token') }
+  });
+
+  return {
+    type: types.DELETE_PROJECT,
+    payload: request
+  };
+}
+
 export function fetchProject(id) {
   return function(dispatch) {
     dispatch(fetchProjectRequest());
@@ -143,13 +154,14 @@ export function fetchProjectFailure(error) {
   };
 }
 
-export function deleteProject(id) {
-  const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
+export function createRole(props) {
+  console.log('props:', props);
+  const request = axios.post(`${API_URI_PREFIX}/projects/${props.projectId}/roles`, props, {
     headers: { authorization: localStorage.getItem('token') }
   });
 
   return {
-    type: types.DELETE_PROJECT,
+    type: types.CREATE_PROJECT,
     payload: request
   };
 }

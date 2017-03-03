@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component } from 'react';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
@@ -8,17 +8,18 @@ import InputField from '../input_field';
 
 import './add_project_form.css';
 
-class AddProjectForm extends Component {
+export class AddProjectForm extends Component {
   static propTypes = {
     createProject: React.PropTypes.func,
     handleSubmit: React.PropTypes.func
   }
 
   static contextTypes = {
-    router: PropTypes.object
-  };
+    router: React.PropTypes.object
+  }
 
   handleFormSubmit(props) {
+    // Pass the form props to the createProject action creator.
     this.props.createProject(props)
       .then(() => {
         // project has been created, navigate the user to account home.
