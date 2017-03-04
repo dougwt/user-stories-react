@@ -59,8 +59,8 @@ describe('components/projects/ProjectsList' , () => {
     expect(component).to.contain('Unable to fetch projects. Error message.');
   });
 
-  it('shows a <li> for each project', () => {
-    expect(component.find('li.project').length).to.equal(2);
+  it('shows a <Link> for each project', () => {
+    expect(component.find('a.project').length).to.equal(2);
   });
 
   it('shows each project that is provided', () => {
