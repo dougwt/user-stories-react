@@ -133,4 +133,51 @@ describe('projectsReducer', () => {
       project_error: null
     });
   });
+
+  xit('handles action of type CREATE_ROLE', () => {
+
+  });
+
+  it('handles action of type CREATE_ROLE_SUCCESS', () => {
+    const project = {
+      _id: '588bb00b627569fc58ed44b6',
+      name: 'Test Project 1',
+      slug: 'test-project-1',
+      roles: [{ name: 'developer' }, { name: 'tester' }]
+    };
+    const state = {
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: project,
+      project_isLoading: false,
+      project_error: null
+    };
+    const action = {
+      type: types.CREATE_ROLE_SUCCESS,
+      payload: {
+        data: {
+          data: [{ name: 'developer' }, { name: 'tester' }, { name: 'new' }]
+        }
+      }
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: {
+        ...project,
+        roles: [
+          ...project.roles,
+          { name: 'new' }
+        ]
+      },
+      project_isLoading: false,
+      project_error: null
+    });
+  });
+
+  xit('handles action of type CREATE_ROLE_FAILURE', () => {
+
+  });
 });
