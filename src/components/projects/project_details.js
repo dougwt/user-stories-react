@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchProject, deleteRole } from '../../actions';
 import AddRoleForm from './add_role_form.js';
 
-export class ProjectsShow extends Component {
+export class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,
     deleteRole: React.PropTypes.func,
@@ -95,4 +95,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchProject, deleteRole })(ProjectsShow);
+export default connect(mapStateToProps, { fetchProject, deleteRole })(ProjectDetails);
