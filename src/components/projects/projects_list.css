@@ -1,0 +1,12 @@
+.projects-list .name {
+  font-weight: bold;
+}
+.projects-list .slug {
+  font-style: italic;
+  color: #999;
+  padding-left: 0.5em;
+  font-size: 0.85em;
+}
+.projects-list .roles {
+  font-size: 0.9em;
+}
