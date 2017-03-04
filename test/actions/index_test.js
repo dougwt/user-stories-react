@@ -200,10 +200,10 @@ describe('actions', () => {
           done();
         });
     });
-    it('spawns a FETCH_PROJECTS_REQUEST', () => {
+    it('spawns a FETCH_PROJECTS', () => {
       expect(newActions.length).to.equal(2);
       const action = newActions[0];
-      expect(action.type).to.equal(types.FETCH_PROJECTS_REQUEST);
+      expect(action.type).to.equal(types.FETCH_PROJECTS);
       expect(action.payload).to.be.undefined;
     });
     it('spawns a FETCH_PROJECTS_SUCCESS', () => {
@@ -319,10 +319,10 @@ describe('actions', () => {
           done();
         });
     });
-    it('spawns a FETCH_PROJECT_REQUEST', () => {
+    it('spawns a FETCH_PROJECT', () => {
       expect(newActions.length).to.equal(2);
       const action = newActions[0];
-      expect(action.type).to.equal(types.FETCH_PROJECT_REQUEST);
+      expect(action.type).to.equal(types.FETCH_PROJECT);
       expect(action.payload).to.be.undefined;
     });
     it('spawns a FETCH_PROJECTS_SUCCESS', () => {
@@ -356,21 +356,22 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.createRole({ projectId: '588bb00b627569fc58ed44b6' });
-      store.dispatch(action)
+      actions.createRole({ projectId: '588bb00b627569fc58ed44b6' })(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a CREATE_ROLE', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.CREATE_ROLE);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a CREATE_ROLE_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.CREATE_ROLE_SUCCESS);
       expect(action.payload).to.exist;
       expect(action.payload.data).to.exist;
       expect(action.payload.data).to.eql(data);

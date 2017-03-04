@@ -16,9 +16,9 @@ describe('projectsReducer', () => {
     });
   });
 
-  it('handles action of type FETCH_PROJECT_REQUEST', () => {
+  it('handles action of type FETCH_PROJECT', () => {
     const state = undefined;
-    const action = { type: types.FETCH_PROJECT_REQUEST };
+    const action = { type: types.FETCH_PROJECT };
     expect(projectsReducer(state, action)).to.eql({
       all: [],
       all_isLoading: false,
@@ -71,9 +71,9 @@ describe('projectsReducer', () => {
     });
   });
 
-  it('handles action of type FETCH_PROJECTS_REQUEST', () => {
+  it('handles action of type FETCH_PROJECTS', () => {
     const state = undefined;
-    const action = { type: types.FETCH_PROJECTS_REQUEST };
+    const action = { type: types.FETCH_PROJECTS };
     expect(projectsReducer(state, action)).to.eql({
       all: [],
       all_isLoading: true,

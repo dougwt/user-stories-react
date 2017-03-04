@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 import { API_URI_PREFIX } from '../config';
 import * as types from './types';
 
+// Auth
+
 export function authSignin({ email, password }) {
   return function(dispatch) {
     // Submit email/password to the server
@@ -66,6 +68,8 @@ export function fetchMessage() {
   };
 }
 
+// Projects
+
 export function fetchProjects() {
   return function(dispatch) {
     dispatch(fetchProjectsRequest());
@@ -78,20 +82,17 @@ export function fetchProjects() {
       .catch(err => dispatch(fetchProjectsFailure(err)));
   };
 }
-
 export function fetchProjectsRequest() {
   return {
-    type: types.FETCH_PROJECTS_REQUEST
+    type: types.FETCH_PROJECTS
   };
 }
-
 export function fetchProjectsSuccess(payload) {
   return {
     type: types.FETCH_PROJECTS_SUCCESS,
     payload
   };
 }
-
 export function fetchProjectsFailure(error) {
   return {
     type: types.FETCH_PROJECTS_FAILURE,
@@ -133,20 +134,17 @@ export function fetchProject(id) {
       .catch(err => dispatch(fetchProjectFailure(err)));
   };
 }
-
 export function fetchProjectRequest() {
   return {
-    type: types.FETCH_PROJECT_REQUEST
+    type: types.FETCH_PROJECT
   };
 }
-
 export function fetchProjectSuccess(payload) {
   return {
     type: types.FETCH_PROJECT_SUCCESS,
     payload
   };
 }
-
 export function fetchProjectFailure(error) {
   return {
     type: types.FETCH_PROJECT_FAILURE,
@@ -154,14 +152,35 @@ export function fetchProjectFailure(error) {
   };
 }
 
-export function createRole(props) {
-  const request = axios.post(`${API_URI_PREFIX}/projects/${props.projectId}/roles`, props, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+// Roles
 
+export function createRole(props) {
+  return function(dispatch) {
+    dispatch(createRoleRequest());
+    const request = axios.post(`${API_URI_PREFIX}/projects/${props.projectId}/roles`, props, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
+
+    return request
+      .then(res => dispatch(createRoleSuccess(res)))
+      .catch(err => dispatch(createRoleFailure(err)));
+  };
+}
+export function createRoleRequest() {
   return {
-    type: types.CREATE_ROLE,
-    payload: request
+    type: types.CREATE_ROLE
+  };
+}
+export function createRoleSuccess(payload) {
+  return {
+    type: types.CREATE_ROLE_SUCCESS,
+    payload
+  };
+}
+export function createRoleFailure(error) {
+  return {
+    type: types.CREATE_ROLE_FAILURE,
+    payload: error
   };
 }
 

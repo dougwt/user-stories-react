@@ -25,7 +25,7 @@ export class AddRoleForm extends Component {
     this.props.createRole(props)
       .then(() => {
         // role has been created
-        this.props.fetchProject(projectId);
+        // this.props.fetchProject(projectId);
       });
   }
 
