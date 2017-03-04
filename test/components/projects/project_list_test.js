@@ -1,7 +1,7 @@
 import { renderComponent , expect } from '../../test_helper';
-import { ProjectsList } from '../../../src/components/projects/projects_list';
+import { ProjectList } from '../../../src/components/projects/project_list';
 
-describe('components/projects/ProjectsList' , () => {
+describe('components/projects/ProjectList' , () => {
   let data, component;
 
   beforeEach(() => {
@@ -24,7 +24,7 @@ describe('components/projects/ProjectsList' , () => {
       }
     ];
 
-    component = renderComponent(ProjectsList, {
+    component = renderComponent(ProjectList, {
       fetchProjects: () => {},
       projects: data,
       isLoading: false,
@@ -40,7 +40,7 @@ describe('components/projects/ProjectsList' , () => {
   });
 
   it('shows a loading message', () => {
-    component = renderComponent(ProjectsList, {
+    component = renderComponent(ProjectList, {
       fetchProjects: () => {},
       projects: [],
       isLoading: true,
@@ -50,7 +50,7 @@ describe('components/projects/ProjectsList' , () => {
   });
 
   it('shows a error message', () => {
-    component = renderComponent(ProjectsList, {
+    component = renderComponent(ProjectList, {
       fetchProjects: () => {},
       projects: [],
       isLoading: false,

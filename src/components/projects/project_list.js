@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 
 import { fetchProjects } from '../../actions';
 
-import './projects_list.css';
+import './project_list.css';
 
-export class ProjectsList extends Component {
+export class ProjectList extends Component {
   static propTypes = {
     fetchProjects: React.PropTypes.func,
     projects: React.PropTypes.array,
@@ -62,4 +62,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchProjects })(ProjectsList);
+export default connect(mapStateToProps, { fetchProjects })(ProjectList);
