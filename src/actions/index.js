@@ -110,17 +110,6 @@ export function createProject(props) {
   };
 }
 
-export function fetchProject(id) {
-  const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
-
-  return {
-    type: types.FETCH_PROJECT,
-    payload: request
-  };
-}
-
 export function deleteProject(id) {
   const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
     headers: { authorization: localStorage.getItem('token') }
@@ -128,6 +117,61 @@ export function deleteProject(id) {
 
   return {
     type: types.DELETE_PROJECT,
+    payload: request
+  };
+}
+
+export function fetchProject(id) {
+  return function(dispatch) {
+    dispatch(fetchProjectRequest());
+    const request = axios.get(`${API_URI_PREFIX}/projects/${id}`, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
+
+    return request
+      .then(res => dispatch(fetchProjectSuccess(res)))
+      .catch(err => dispatch(fetchProjectFailure(err)));
+  };
+}
+
+export function fetchProjectRequest() {
+  return {
+    type: types.FETCH_PROJECT_REQUEST
+  };
+}
+
+export function fetchProjectSuccess(payload) {
+  return {
+    type: types.FETCH_PROJECT_SUCCESS,
+    payload
+  };
+}
+
+export function fetchProjectFailure(error) {
+  return {
+    type: types.FETCH_PROJECT_FAILURE,
+    payload: error
+  };
+}
+
+export function createRole(props) {
+  const request = axios.post(`${API_URI_PREFIX}/projects/${props.projectId}/roles`, props, {
+    headers: { authorization: localStorage.getItem('token') }
+  });
+
+  return {
+    type: types.CREATE_ROLE,
+    payload: request
+  };
+}
+
+export function deleteRole(projectId, roleId) {
+  const request = axios.delete(`${API_URI_PREFIX}/projects/${projectId}/roles/${roleId}`, {
+    headers: { authorization: localStorage.getItem('token') }
+  });
+
+  return {
+    type: types.DELETE_ROLE,
     payload: request
   };
 }

@@ -4,12 +4,14 @@ import { Link } from 'react-router';
 
 import { fetchProjects } from '../../actions';
 
+import './projects_list.css';
+
 export class ProjectsList extends Component {
   static propTypes = {
     fetchProjects: React.PropTypes.func,
+    projects: React.PropTypes.array,
     isLoading: React.PropTypes.bool,
-    error: React.PropTypes.string,
-    projects: React.PropTypes.array
+    error: React.PropTypes.string
   }
 
   componentWillMount() {
@@ -17,22 +19,18 @@ export class ProjectsList extends Component {
   }
 
   renderProjects() {
-    if (this.props.isLoading) {
-      return <li className="list-group-item">Loading...</li>;
-    }
     if(this.props.error) {
-      return <li className="list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
+      return <li className="project list-group-item">Unable to fetch projects. {this.props.error.toString()}</li>;
+    }
+    if (this.props.isLoading) {
+      return <li className="project list-group-item">Loading...</li>;
     }
     return this.props.projects.map((project) => {
       return (
-        <li className="list-group-item" key={project._id}>
-          <span className="pull-right">{project.roles.map((role) => role.name).join(', ')}</span>
-          <strong>
-            <Link to={'projects/' + project._id}>
-              {project.name}
-            </Link>
-          </strong>
-        </li>
+        <Link to={'projects/' + project._id} className="project list-group-item list-group-item-action" key={project._id}>
+          <span className="name">{project.name}</span> <span className="slug">{project.slug}</span>
+          <span className="roles pull-right">{project.roles.map((role) => role.name).join(', ')}</span>
+        </Link>
       );
     });
   }
@@ -42,9 +40,9 @@ export class ProjectsList extends Component {
       <div className="projects-list">
         <h3>Projects</h3>
 
-        <ul className="list-group">
+        <div className="list-group">
           {this.renderProjects()}
-        </ul>
+        </div>
 
         <div className="text-right">
           <Link to="/new" className="btn btn-primary">
@@ -59,8 +57,8 @@ export class ProjectsList extends Component {
 function mapStateToProps(state) {
   return {
     projects: state.projects.all,
-    isLoading: state.projects.isLoading,
-    error: state.projects.error
+    isLoading: state.projects.all_isLoading,
+    error: state.projects.all_error
   };
 }
 

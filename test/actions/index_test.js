@@ -260,50 +260,6 @@ describe('actions', () => {
     });
   });
 
-  describe('fetchProject', () => {
-    let data, store, action, newActions;
-
-    beforeEach((done) => {
-      data = {
-        'status': 'success',
-        'data': {
-          '_id': '588bb00b627569fc58ed44b6',
-          '_createdAt': '2017-01-27T20:39:39.225Z',
-          '_updatedAt': '2017-01-27T20:39:39.225Z',
-          'name': 'My Example',
-          'slug': 'my-example-project',
-          'roles': [],
-          'stories': [],
-          'owner': null
-        }
-      };
-      nock(API_URI_PREFIX)
-        .get('/projects/588bb00b627569fc58ed44b6')
-        .reply(200, data);
-
-      store = mockStore({ authenticated: true, error: '' });
-
-      action = actions.fetchProject('588bb00b627569fc58ed44b6');
-      store.dispatch(action)
-        .then(() => { // return of async actions
-          newActions = store.getActions();
-          done();
-        });
-    });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
-      expect(action.type).to.equal(types.FETCH_PROJECT);
-    });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
-      expect(action.payload).to.exist;
-      expect(action.payload.data).to.exist;
-      expect(action.payload.data).to.eql(data);
-    });
-  });
-
   describe('deleteProject', () => {
     let store, action, newActions;
 
@@ -333,4 +289,125 @@ describe('actions', () => {
       expect(action.payload.data).to.be.eql('');
     });
   });
+
+  describe('fetchProject', () => {
+    let data, store, action, newActions;
+
+    beforeEach((done) => {
+      data = {
+        'status': 'success',
+        'data': {
+          '_id': '588bb00b627569fc58ed44b6',
+          '_createdAt': '2017-01-27T20:39:39.225Z',
+          '_updatedAt': '2017-01-27T20:39:39.225Z',
+          'name': 'My Example',
+          'slug': 'my-example-project',
+          'roles': [],
+          'stories': [],
+          'owner': null
+        }
+      };
+      nock(API_URI_PREFIX)
+        .get('/projects/588bb00b627569fc58ed44b6')
+        .reply(200, data);
+
+      store = mockStore({ authenticated: true, error: '' });
+
+      actions.fetchProject('588bb00b627569fc58ed44b6')(store.dispatch)
+        .then(() => { // return of async actions
+          newActions = store.getActions();
+          done();
+        });
+    });
+    it('spawns a FETCH_PROJECT_REQUEST', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[0];
+      expect(action.type).to.equal(types.FETCH_PROJECT_REQUEST);
+      expect(action.payload).to.be.undefined;
+    });
+    it('spawns a FETCH_PROJECTS_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.FETCH_PROJECT_SUCCESS);
+      expect(action.payload).to.exist;
+      expect(action.payload.data).to.exist;
+      expect(action.payload.data).to.eql(data);
+    });
+  });
+
+  describe('createRole', () => {
+    let data, store, action, newActions;
+
+    beforeEach((done) => {
+      data = {
+        'status': 'success',
+        'data': [
+          {
+            '_id': '588bbf5c93e45420b0046aa6',
+            '_createdAt': '2017-01-27T21:45:00.421Z',
+            '_updatedAt': '2017-01-27T21:45:00.421Z',
+            'name': 'User'
+          }
+        ]
+      };
+      nock(API_URI_PREFIX)
+        .post('/projects/588bb00b627569fc58ed44b6/roles')
+        .reply(201, data);
+
+      store = mockStore({ authenticated: true, error: '' });
+
+      action = actions.createRole({ projectId: '588bb00b627569fc58ed44b6' });
+      store.dispatch(action)
+        .then(() => { // return of async actions
+          newActions = store.getActions();
+          done();
+        });
+    });
+    it('has the correct type', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.type).to.equal(types.CREATE_ROLE);
+    });
+    it('has the correct payload', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.payload).to.exist;
+      expect(action.payload.data).to.exist;
+      expect(action.payload.data).to.eql(data);
+    });
+  });
+
+  describe('deleteRole', () => {
+    let store, action, newActions;
+
+    beforeEach((done) => {
+      nock(API_URI_PREFIX)
+        .delete('/projects/588bb00b627569fc58ed44b6/roles/588bbf5c93e45420b0046aa6')
+        .reply(204);
+
+      store = mockStore({ authenticated: true, error: '' });
+
+      action = actions.deleteRole({
+        projectId: '588bb00b627569fc58ed44b6',
+        roleId: '588bbf5c93e45420b0046aa6'
+      });
+      store.dispatch(action)
+        .then(() => { // return of async actions
+          newActions = store.getActions();
+          done();
+        });
+    });
+    it('has the correct type', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.type).to.equal(types.DELETE_ROLE);
+    });
+    it('has the correct payload', () => {
+      expect(newActions.length).to.equal(1);
+      const action = newActions[0];
+      expect(action.payload).to.exist;
+      expect(action.payload.data).to.be.undefined;
+    });
+  });
+
 });
