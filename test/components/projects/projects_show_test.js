@@ -77,6 +77,10 @@ describe('components/projects/ProjectsShow' , () => {
     expect(component).to.contain('This project currently has no roles.');
   });
 
+  it('shows a <AddRoleForm/>', () => {
+    expect(component.find('.add-role-form')).to.exist;
+  });
+
   xit('shows a <li> for each story', () => {
 
   });

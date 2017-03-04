@@ -33,7 +33,7 @@ export class AddRoleForm extends Component {
     const { handleSubmit } = this.props;
 
     return (
-      <form className="form-inline" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form className="add-role-form form-inline" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
         <div className="input-group">
 
           <Field

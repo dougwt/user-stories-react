@@ -160,7 +160,7 @@ export function createRole(props) {
   });
 
   return {
-    type: types.CREATE_PROJECT,
+    type: types.CREATE_ROLE,
     payload: request
   };
 }
