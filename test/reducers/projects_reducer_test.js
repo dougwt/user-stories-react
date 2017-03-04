@@ -1,5 +1,5 @@
 import { expect } from '../test_helper';
-import projectsReducer from '../../src/reducers/reducer_projects';
+import projectsReducer from '../../src/reducers/projects_reducer';
 import * as types from '../../src/actions/types';
 
 describe('projectsReducer', () => {
