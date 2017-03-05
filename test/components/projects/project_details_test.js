@@ -59,6 +59,10 @@ describe('components/projects/ProjectDetails' , () => {
     expect(component.find('li.role').length).to.equal(2);
   });
 
+  it('shows a delete <button> for each <li>', () => {
+    expect(component.find('li.role > button').length).to.equal(2);
+  });
+
   it('shows each role that is provided', () => {
     expect(component).to.contain('Developer');
     expect(component).to.contain('Tester');
