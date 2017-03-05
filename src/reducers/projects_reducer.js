@@ -6,7 +6,9 @@ const INITIAL_STATE = {
   all_error: null,
   project: null,
   project_isLoading: false,
-  project_error: null
+  project_error: null,
+  role_isPosting: false,
+  role_error: null
 };
 
 export default function(state = INITIAL_STATE, action) {
@@ -59,21 +61,31 @@ export default function(state = INITIAL_STATE, action) {
       all_error: action.payload
     };
   }
-  // case types.CREATE_ROLE: {
-  //   return  state;
-  // }
+  case types.CREATE_ROLE: {
+    return  {
+      ...state,
+      role_isPosting: true,
+      role_error: null
+    };
+  }
   case types.CREATE_ROLE_SUCCESS: {
     return {
       ...state,
       project: {
         ...state.project,
         roles: action.payload.data.data
-      }
+      },
+      role_isPosting: false,
+      role_error: null
     };
   }
-  // case types.CREATE_ROLE_FAILURE: {
-  //   return state;
-  // }
+  case types.CREATE_ROLE_FAILURE: {
+    return {
+      ...state,
+      role_isPosting: false,
+      role_error: action.payload
+    };
+  }
 
   default: {
     return state;

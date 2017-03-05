@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { fetchProject, deleteRole } from '../../actions';
 import AddRoleForm from './add_role_form.js';
 
+// import '../../loading.css';
+
 export class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,

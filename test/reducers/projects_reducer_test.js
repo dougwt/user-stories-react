@@ -12,7 +12,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: null,
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -25,7 +27,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: null,
       project_isLoading: true,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -51,7 +55,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: project,
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -67,7 +73,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: null,
       project_isLoading: false,
-      project_error: 'This is a sample error message.'
+      project_error: 'This is a sample error message.',
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -80,7 +88,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: null,
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -114,7 +124,9 @@ describe('projectsReducer', () => {
       all_error: null,
       project: null,
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
@@ -130,12 +142,25 @@ describe('projectsReducer', () => {
       all_error: 'This is a sample error message.',
       project: null,
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
-  xit('handles action of type CREATE_ROLE', () => {
-
+  it('handles action of type CREATE_ROLE', () => {
+    const state = undefined;
+    const action = { type: types.CREATE_ROLE };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: true,
+      role_error: null
+    });
   });
 
   it('handles action of type CREATE_ROLE_SUCCESS', () => {
@@ -173,11 +198,27 @@ describe('projectsReducer', () => {
         ]
       },
       project_isLoading: false,
-      project_error: null
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
     });
   });
 
-  xit('handles action of type CREATE_ROLE_FAILURE', () => {
-
+  it('handles action of type CREATE_ROLE_FAILURE', () => {
+    const state = undefined;
+    const action = {
+      type: types.CREATE_ROLE_FAILURE,
+      payload: 'This is a sample error message.'
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: 'This is a sample error message.'
+    });
   });
 });
