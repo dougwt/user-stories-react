@@ -191,6 +191,9 @@ export function deleteRole(projectId, roleId) {
 
   return {
     type: types.DELETE_ROLE,
-    payload: request
+    payload: {
+      roleId,
+      request
+    }
   };
 }

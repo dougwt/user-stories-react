@@ -87,6 +87,19 @@ export default function(state = INITIAL_STATE, action) {
     };
   }
 
+  case types.DELETE_ROLE: {
+    const { project } = state;
+
+    return {
+      ...state,
+      project: {
+        ...state.project,
+        // Remove the role
+        roles: project.roles.filter((e, i) => project.roles[i]._id !== action.payload.roleId)
+      }
+    };
+  }
+
   default: {
     return state;
   }

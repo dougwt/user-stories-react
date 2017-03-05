@@ -22,11 +22,16 @@ export class ProjectDetails extends Component {
 
   handleClick(roleId, e) {
     e.preventDefault();
+    this.deleteRole(roleId);
+  }
+
+  deleteRole(roleId) {
     const projectId = this.props.params.id;
 
+    // Dispatch a request to the API server to delete the Role
     this.props.deleteRole(projectId, roleId)
     .then(() => {
-      // role has been deleted
+      // Remove the Role from local state
       this.props.fetchProject(projectId);
     });
   }
