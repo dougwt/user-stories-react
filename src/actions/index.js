@@ -184,7 +184,7 @@ export function createRoleFailure(error) {
   };
 }
 
-export function deleteRole(projectId, roleId) {
+export function deleteRole({ projectId, roleId }) {
   return function(dispatch) {
     dispatch(deleteRoleRequest());
     const request = axios.delete(`${API_URI_PREFIX}/projects/${projectId}/roles/${roleId}`, {
