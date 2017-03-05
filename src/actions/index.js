@@ -185,15 +185,35 @@ export function createRoleFailure(error) {
 }
 
 export function deleteRole(projectId, roleId) {
-  const request = axios.delete(`${API_URI_PREFIX}/projects/${projectId}/roles/${roleId}`, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+  return function(dispatch) {
+    dispatch(deleteRoleRequest());
+    const request = axios.delete(`${API_URI_PREFIX}/projects/${projectId}/roles/${roleId}`, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
 
+    return request
+      .then(res => dispatch(deleteRoleSuccess(res)))
+      .catch(err => dispatch(deleteRoleFailure(err)));
+  };
+}
+export function deleteRoleRequest() {
   return {
     type: types.DELETE_ROLE,
     payload: {
-      roleId,
-      request
+      // roleId,
+      // request
     }
+  };
+}
+export function deleteRoleSuccess(payload) {
+  return {
+    type: types.DELETE_ROLE_SUCCESS,
+    payload
+  };
+}
+export function deleteRoleFailure(error) {
+  return {
+    type: types.DELETE_ROLE_FAILURE,
+    payload: error
   };
 }
