@@ -47,7 +47,7 @@ export class AddRoleForm extends Component {
   renderError() {
     if (this.props.role_error) {
       return (
-        <span className="error text-danger">{this.props.role_error}</span>
+        <span className="error text-danger">{this.props.role_error.response.data.message}</span>
       );
     }
   }
