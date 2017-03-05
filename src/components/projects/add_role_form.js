@@ -7,26 +7,30 @@ import { createRole } from '../../actions';
 
 import './add_role_form.css';
 
-function InlineInputField(field) {
-  return <input {...field.input} placeholder={field.placeholder} type={field.type} className="form-control" />;
-}
-
 export class AddRoleForm extends Component {
   static propTypes = {
     createRole: React.PropTypes.func,
     handleSubmit: React.PropTypes.func,
+    reset: React.PropTypes.func,
     project: React.PropTypes.object,
     role_isPosting: React.PropTypes.bool,
     role_error: React.PropTypes.object
   }
 
   handleFormSubmit(props) {
+    const { createRole } = this.props;
+
     const projectId = this.props.project._id;
     // Insert the projectId into the form props, so that
     // createRole knows to which project it should be added.
     props.projectId = projectId;
     // Pass the form props to the createRole action creator.
-    this.props.createRole(props);
+    createRole(props)
+      .then(() => {
+        if (!this.props.role_error) {
+          this.props.reset();
+        }
+      });
   }
 
   renderSubmit() {
@@ -39,7 +43,7 @@ export class AddRoleForm extends Component {
     }
     return (
       <div className="input-group-btn">
-        <button type="submit" className={'btn ' + (this.props.role_error ? 'btn-danger' : 'btn-default')}>Add</button>
+        <button type="submit" action="submit" className={'btn ' + (this.props.role_error ? 'btn-danger' : 'btn-default')}>Add</button>
       </div>
     );
   }
@@ -56,14 +60,14 @@ export class AddRoleForm extends Component {
     const { handleSubmit, role_error } = this.props;
 
     return (
-      <form className="add-role-form form-inline" onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+      <form onSubmit={ handleSubmit(this.handleFormSubmit.bind(this)) } className="add-role-form form-inline">
         <div className={'input-group form-group ' + (role_error ? 'has-error' : '')}>
 
           <Field
             name="name"
             placeholder="Add a new Role..."
             className="form-control"
-            component={InlineInputField}/>
+            component="input"/>
 
           {this.renderSubmit()}
 
