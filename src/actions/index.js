@@ -192,28 +192,30 @@ export function deleteRole({ projectId, roleId }) {
     });
 
     return request
-      .then(res => dispatch(deleteRoleSuccess(res)))
-      .catch(err => dispatch(deleteRoleFailure(err)));
+      .then(res => dispatch(deleteRoleSuccess(res, roleId)))
+      .catch(err => dispatch(deleteRoleFailure(err, roleId)));
   };
 }
 export function deleteRoleRequest() {
   return {
-    type: types.DELETE_ROLE,
+    type: types.DELETE_ROLE
+  };
+}
+export function deleteRoleSuccess(payload, roleId) {
+  return {
+    type: types.DELETE_ROLE_SUCCESS,
     payload: {
-      // roleId,
-      // request
+      roleId,
+      data: payload
     }
   };
 }
-export function deleteRoleSuccess(payload) {
-  return {
-    type: types.DELETE_ROLE_SUCCESS,
-    payload
-  };
-}
-export function deleteRoleFailure(error) {
+export function deleteRoleFailure(error, roleId) {
   return {
     type: types.DELETE_ROLE_FAILURE,
-    payload: error
+    payload: {
+      roleId,
+      error
+    }
   };
 }

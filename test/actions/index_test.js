@@ -408,7 +408,9 @@ describe('actions', () => {
       const action = newActions[1];
       expect(action.type).to.equal(types.DELETE_ROLE_SUCCESS);
       expect(action.payload).to.exist;
-      expect(action.payload.data).to.be.eql('');
+      expect(action.payload.roleId).to.exist;
+      expect(action.payload.roleId).to.eql('588bbf5c93e45420b0046aa6');
+      expect(action.payload.data).to.exist;
     });
   });
 });

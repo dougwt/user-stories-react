@@ -29,10 +29,10 @@ export class ProjectDetails extends Component {
     const projectId = this.props.params.id;
 
     // Dispatch a request to the API server to delete the Role
-    this.props.deleteRole(projectId, roleId)
+    this.props.deleteRole({ projectId, roleId })
     .then(() => {
       // Remove the Role from local state
-      this.props.fetchProject(projectId);
+      // this.props.fetchProject(projectId);
     });
   }
 

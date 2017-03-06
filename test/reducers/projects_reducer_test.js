@@ -221,4 +221,39 @@ describe('projectsReducer', () => {
       role_error: 'This is a sample error message.'
     });
   });
+
+  it('handles action of type DELETE_ROLE_SUCCESS', () => {
+    const roleId = '58bc930e4a7f829be6ff2f8a';
+    const state = {
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: { roles: [
+        { _id: roleId },
+        { _id: '58bc930e4a7f829be6ff2f8f' }
+      ]},
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    };
+    const action = {
+      type: types.DELETE_ROLE_SUCCESS,
+      payload: {
+        roleId
+      }
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: { roles: [
+        { _id: '58bc930e4a7f829be6ff2f8f' }
+      ]},
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    });
+  });
 });
