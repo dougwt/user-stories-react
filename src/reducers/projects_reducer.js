@@ -4,39 +4,17 @@ const INITIAL_STATE = {
   all: [],
   all_isLoading: false,
   all_error: null,
+
   project: null,
   project_isLoading: false,
   project_error: null,
+
   role_isPosting: false,
   role_error: null
 };
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
-  case types.FETCH_PROJECT: {
-    return {
-      ...state,
-      project: null,
-      project_isLoading: true,
-      project_error: null
-    };
-  }
-  case types.FETCH_PROJECT_SUCCESS: {
-    return {
-      ...state,
-      project: action.payload.data.data,
-      project_isLoading: false,
-      project_error: null
-    };
-  }
-  case types.FETCH_PROJECT_FAILURE: {
-    return {
-      ...state,
-      project: null,
-      project_isLoading: false,
-      project_error: action.payload
-    };
-  }
   case types.FETCH_PROJECTS: {
     return {
       ...state,
@@ -61,9 +39,8 @@ export default function(state = INITIAL_STATE, action) {
       all_error: action.payload
     };
   }
-  case types.CREATE_PROJECT: {
-    return state;
-  }
+
+  case types.CREATE_PROJECT: { return state; }
   case types.CREATE_PROJECT_SUCCESS: {
     return {
       ...state,
@@ -72,9 +49,37 @@ export default function(state = INITIAL_STATE, action) {
         action.payload.data.data ]
     };
   }
-  case types.CREATE_PROJECT_FAILURE: {
-    return state;
+  case types.CREATE_PROJECT_FAILURE: { return state; }
+
+  case types.DELETE_PROJECT: { return state; }
+  case types.DELETE_PROJECT_SUCCESS: { return state; }
+  case types.DELETE_PROJECT_FAILURE: { return state; }
+
+  case types.FETCH_PROJECT: {
+    return {
+      ...state,
+      project: null,
+      project_isLoading: true,
+      project_error: null
+    };
   }
+  case types.FETCH_PROJECT_SUCCESS: {
+    return {
+      ...state,
+      project: action.payload.data.data,
+      project_isLoading: false,
+      project_error: null
+    };
+  }
+  case types.FETCH_PROJECT_FAILURE: {
+    return {
+      ...state,
+      project: null,
+      project_isLoading: false,
+      project_error: action.payload
+    };
+  }
+
   case types.CREATE_ROLE: {
     return  {
       ...state,
@@ -101,6 +106,7 @@ export default function(state = INITIAL_STATE, action) {
     };
   }
 
+  case types.DELETE_ROLE: { return state; }
   case types.DELETE_ROLE_SUCCESS: {
     return {
       ...state,
@@ -113,9 +119,9 @@ export default function(state = INITIAL_STATE, action) {
       }
     };
   }
+  case types.DELETE_ROLE_FAILURE: { return state; }
 
-  default: {
+  default:
     return state;
-  }
   }
 }
