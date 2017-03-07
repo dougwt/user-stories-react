@@ -239,25 +239,29 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.createProject();
-      store.dispatch(action)
+      actions.createProject()(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a CREATE_PROJECT', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.CREATE_PROJECT);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a CREATE_PROJECT_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.CREATE_PROJECT_SUCCESS);
       expect(action.payload).to.exist;
       expect(action.payload.data).to.exist;
       expect(action.payload.data).to.eql(data);
     });
+
+    /////////////////////
+
   });
 
   describe('deleteProject', () => {

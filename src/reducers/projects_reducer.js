@@ -61,6 +61,20 @@ export default function(state = INITIAL_STATE, action) {
       all_error: action.payload
     };
   }
+  case types.CREATE_PROJECT: {
+    return state;
+  }
+  case types.CREATE_PROJECT_SUCCESS: {
+    return {
+      ...state,
+      all: [
+        ...state.all,
+        action.payload.data.data ]
+    };
+  }
+  case types.CREATE_PROJECT_FAILURE: {
+    return state;
+  }
   case types.CREATE_ROLE: {
     return  {
       ...state,

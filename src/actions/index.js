@@ -101,13 +101,32 @@ export function fetchProjectsFailure(error) {
 }
 
 export function createProject(props) {
-  const request = axios.post(`${API_URI_PREFIX}/projects`, props, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+  return function(dispatch) {
+    dispatch(createProjectRequest());
+    const request = axios.post(`${API_URI_PREFIX}/projects`, props, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
 
+    return request
+      .then(res => dispatch(createProjectSuccess(res)))
+      .catch(err => dispatch(createProjectFailure(err)));
+  };
+}
+export function createProjectRequest() {
   return {
-    type: types.CREATE_PROJECT,
-    payload: request
+    type: types.CREATE_PROJECT
+  };
+}
+export function createProjectSuccess(payload) {
+  return {
+    type: types.CREATE_PROJECT_SUCCESS,
+    payload
+  };
+}
+export function createProjectFailure(error) {
+  return {
+    type: types.CREATE_PROJECT_FAILURE,
+    payload: error
   };
 }
 
