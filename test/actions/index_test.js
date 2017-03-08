@@ -46,7 +46,7 @@ describe('actions', () => {
           done();
         })
         .catch((err) => {
-          console.log('Error:', err);
+          console.error(err);
         });
     });
     it('has the correct type', () => {
@@ -164,7 +164,7 @@ describe('actions', () => {
   });
 
   describe('fetchProjects', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -200,10 +200,10 @@ describe('actions', () => {
           done();
         });
     });
-    it('spawns a FETCH_PROJECTS_REQUEST', () => {
+    it('spawns a FETCH_PROJECTS', () => {
       expect(newActions.length).to.equal(2);
       const action = newActions[0];
-      expect(action.type).to.equal(types.FETCH_PROJECTS_REQUEST);
+      expect(action.type).to.equal(types.FETCH_PROJECTS);
       expect(action.payload).to.be.undefined;
     });
     it('spawns a FETCH_PROJECTS_SUCCESS', () => {
@@ -217,7 +217,7 @@ describe('actions', () => {
   });
 
   describe('createProject', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -239,21 +239,22 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.createProject();
-      store.dispatch(action)
+      actions.createProject()(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a CREATE_PROJECT', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.CREATE_PROJECT);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a CREATE_PROJECT_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.CREATE_PROJECT_SUCCESS);
       expect(action.payload).to.exist;
       expect(action.payload.data).to.exist;
       expect(action.payload.data).to.eql(data);
@@ -261,7 +262,7 @@ describe('actions', () => {
   });
 
   describe('deleteProject', () => {
-    let store, action, newActions;
+    let store, newActions;
 
     beforeEach((done) => {
       nock(API_URI_PREFIX)
@@ -270,28 +271,29 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.deleteProject('588bb00b627569fc58ed44b6');
-      store.dispatch(action)
+      actions.deleteProject('588bb00b627569fc58ed44b6')(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a DELETE_PROJECT', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.DELETE_PROJECT);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a DELETE_PROJECT_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.DELETE_PROJECT_SUCCESS);
       expect(action.payload).to.exist;
-      expect(action.payload.data).to.be.eql('');
+      expect(action.payload.data).to.exist;
     });
   });
 
   describe('fetchProject', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -319,10 +321,10 @@ describe('actions', () => {
           done();
         });
     });
-    it('spawns a FETCH_PROJECT_REQUEST', () => {
+    it('spawns a FETCH_PROJECT', () => {
       expect(newActions.length).to.equal(2);
       const action = newActions[0];
-      expect(action.type).to.equal(types.FETCH_PROJECT_REQUEST);
+      expect(action.type).to.equal(types.FETCH_PROJECT);
       expect(action.payload).to.be.undefined;
     });
     it('spawns a FETCH_PROJECTS_SUCCESS', () => {
@@ -336,7 +338,7 @@ describe('actions', () => {
   });
 
   describe('createRole', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -356,21 +358,22 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.createRole({ projectId: '588bb00b627569fc58ed44b6' });
-      store.dispatch(action)
+      actions.createRole({ projectId: '588bb00b627569fc58ed44b6' })(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a CREATE_ROLE', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.CREATE_ROLE);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a CREATE_ROLE_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.CREATE_ROLE_SUCCESS);
       expect(action.payload).to.exist;
       expect(action.payload.data).to.exist;
       expect(action.payload.data).to.eql(data);
@@ -378,7 +381,7 @@ describe('actions', () => {
   });
 
   describe('deleteRole', () => {
-    let store, action, newActions;
+    let store, newActions;
 
     beforeEach((done) => {
       nock(API_URI_PREFIX)
@@ -387,27 +390,29 @@ describe('actions', () => {
 
       store = mockStore({ authenticated: true, error: '' });
 
-      action = actions.deleteRole({
+      actions.deleteRole({
         projectId: '588bb00b627569fc58ed44b6',
         roleId: '588bbf5c93e45420b0046aa6'
-      });
-      store.dispatch(action)
+      })(store.dispatch)
         .then(() => { // return of async actions
           newActions = store.getActions();
           done();
         });
     });
-    it('has the correct type', () => {
-      expect(newActions.length).to.equal(1);
+    it('spawns a DELETE_ROLE', () => {
+      expect(newActions.length).to.equal(2);
       const action = newActions[0];
       expect(action.type).to.equal(types.DELETE_ROLE);
+      expect(action.payload).to.be.undefined;
     });
-    it('has the correct payload', () => {
-      expect(newActions.length).to.equal(1);
-      const action = newActions[0];
+    it('spawns a DELETE_ROLE_SUCCESS', () => {
+      expect(newActions.length).to.equal(2);
+      const action = newActions[1];
+      expect(action.type).to.equal(types.DELETE_ROLE_SUCCESS);
       expect(action.payload).to.exist;
-      expect(action.payload.data).to.be.undefined;
+      expect(action.payload.roleId).to.exist;
+      expect(action.payload.roleId).to.eql('588bbf5c93e45420b0046aa6');
+      expect(action.payload.data).to.exist;
     });
   });
-
 });

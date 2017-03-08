@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { fetchProject, deleteRole } from '../../actions';
 import AddRoleForm from './add_role_form.js';
 
-export class ProjectsShow extends Component {
+// import '../../loading.css';
+
+export class ProjectDetails extends Component {
   static propTypes = {
     fetchProject: React.PropTypes.func,
     deleteRole: React.PropTypes.func,
@@ -20,12 +22,17 @@ export class ProjectsShow extends Component {
 
   handleClick(roleId, e) {
     e.preventDefault();
+    this.deleteRole(roleId);
+  }
+
+  deleteRole(roleId) {
     const projectId = this.props.params.id;
 
-    this.props.deleteRole(projectId, roleId)
+    // Dispatch a request to the API server to delete the Role
+    this.props.deleteRole({ projectId, roleId })
     .then(() => {
-      // role has been deleted
-      this.props.fetchProject(projectId);
+      // Remove the Role from local state
+      // this.props.fetchProject(projectId);
     });
   }
 
@@ -95,4 +102,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchProject, deleteRole })(ProjectsShow);
+export default connect(mapStateToProps, { fetchProject, deleteRole })(ProjectDetails);

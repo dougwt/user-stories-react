@@ -9,7 +9,7 @@ import AuthSignup from './components/views/auth_signup';
 import AuthSignout from './components/views/auth_signout';
 
 import AddProjectForm from './components/projects/add_project_form';
-import ProjectsShow from './components/projects/projects_show';
+import ProjectDetails from './components/projects/project_details';
 import Feature from './components/views/feature';
 
 import RequireAuth from './components/auth/require_auth';
@@ -23,6 +23,6 @@ export default (
     <Route path="signup" component={AuthSignup} />
     <Route path="signout" component={AuthSignout} />
     <Route path="feature" component={RequireAuth(Feature)} />
-    <Route path="projects/:id" component={RequireAuth(ProjectsShow)} />
+    <Route path="projects/:id" component={RequireAuth(ProjectDetails)} />
   </Route>
 );

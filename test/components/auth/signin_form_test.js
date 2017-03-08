@@ -1,7 +1,6 @@
-import { renderComponent , expect } from '../../test_helper';
+import { renderComponent , expect, store } from '../../test_helper';
 import SigninForm from '../../../src/components/auth/signin_form';
 import { authError } from '../../../src/actions';
-import { store } from '../../test_helper';
 
 describe('components/auth/SigninForm' , () => {
   let component;

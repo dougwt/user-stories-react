@@ -1,7 +1,7 @@
 import { renderComponent , expect } from '../../test_helper';
-import { ProjectsShow } from '../../../src/components/projects/projects_show';
+import { ProjectDetails } from '../../../src/components/projects/project_details';
 
-describe('components/projects/ProjectsShow' , () => {
+describe('components/projects/ProjectDetails' , () => {
   let data, component;
 
   beforeEach(() => {
@@ -14,7 +14,7 @@ describe('components/projects/ProjectsShow' , () => {
       'roles': [{ 'name': 'Developer' }, { 'name': 'Tester' }]
     };
 
-    component = renderComponent(ProjectsShow, {
+    component = renderComponent(ProjectDetails, {
       fetchProject: () => {},
       project: data,
       params: { id: '588bb00b627569fc58ed44b6' },
@@ -32,7 +32,7 @@ describe('components/projects/ProjectsShow' , () => {
   });
 
   it('shows a project loading message', () => {
-    component = renderComponent(ProjectsShow, {
+    component = renderComponent(ProjectDetails, {
       fetchProject: () => {},
       project: null,
       params: { id: '588bb00b627569fc58ed44b6' },
@@ -44,7 +44,7 @@ describe('components/projects/ProjectsShow' , () => {
   });
 
   it('shows a project error message', () => {
-    component = renderComponent(ProjectsShow, {
+    component = renderComponent(ProjectDetails, {
       fetchProject: () => {},
       project: null,
       params: { id: '588bb00b627569fc58ed44b6' },
@@ -59,6 +59,10 @@ describe('components/projects/ProjectsShow' , () => {
     expect(component.find('li.role').length).to.equal(2);
   });
 
+  it('shows a delete <button> for each <li>', () => {
+    expect(component.find('li.role > button').length).to.equal(2);
+  });
+
   it('shows each role that is provided', () => {
     expect(component).to.contain('Developer');
     expect(component).to.contain('Tester');
@@ -66,7 +70,7 @@ describe('components/projects/ProjectsShow' , () => {
 
   it('shows a empty roles message', () => {
     data.roles = [];
-    component = renderComponent(ProjectsShow, {
+    component = renderComponent(ProjectDetails, {
       fetchProject: () => {},
       project: data,
       params: { id: '588bb00b627569fc58ed44b6' },
