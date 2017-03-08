@@ -52,7 +52,16 @@ export default function(state = INITIAL_STATE, action) {
   case types.CREATE_PROJECT_FAILURE: { return state; }
 
   case types.DELETE_PROJECT: { return state; }
-  case types.DELETE_PROJECT_SUCCESS: { return state; }
+  case types.DELETE_PROJECT_SUCCESS: {
+    return {
+      ...state,
+      all: [
+        ...state.all.filter((project) => {
+          return project._id !== action.payload.id;
+        })
+      ]
+    };
+  }
   case types.DELETE_PROJECT_FAILURE: { return state; }
 
   case types.FETCH_PROJECT: {

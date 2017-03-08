@@ -131,15 +131,41 @@ export function createProjectFailure(error) {
 }
 
 export function deleteProject(id) {
-  const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
-    headers: { authorization: localStorage.getItem('token') }
-  });
+  return function(dispatch) {
+    dispatch(deleteProjectRequest());
+    const request = axios.delete(`${API_URI_PREFIX}/projects/${id}`, {
+      headers: { authorization: localStorage.getItem('token') }
+    });
 
-  return {
-    type: types.DELETE_PROJECT,
-    payload: request
+    return request
+      .then(res => dispatch(deleteProjectSuccess(res, id)))
+      .catch(err => dispatch(deleteProjectFailure(err, id)));
   };
 }
+export function deleteProjectRequest() {
+  return {
+    type: types.DELETE_PROJECT
+  };
+}
+export function deleteProjectSuccess(payload, id) {
+  return {
+    type: types.DELETE_PROJECT_SUCCESS,
+    payload: {
+      id,
+      data: payload
+    }
+  };
+}
+export function deleteProjectFailure(error, id) {
+  return {
+    type: types.DELETE_PROJECT_FAILURE,
+    payload: {
+      id,
+      error
+    }
+  };
+}
+
 
 export function fetchProject(id) {
   return function(dispatch) {

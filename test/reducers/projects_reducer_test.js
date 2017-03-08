@@ -173,7 +173,7 @@ describe('projectsReducer', () => {
     const project2 = {
       _id: '588bb00b627569fc58ed44c7',
       name: 'Test Project 2',
-      slug: 'test-project-3',
+      slug: 'test-project-2',
       roles: []
     };
     const state = {
@@ -214,6 +214,122 @@ describe('projectsReducer', () => {
     };
     expect(projectsReducer(state, action)).to.eql({
       all: [],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    });
+  });
+
+  it('handles action of type DELETE_PROJECT', () => {
+    const project1 = {
+      _id: '588bb00b627569fc58ed44b6',
+      name: 'Test Project 1',
+      slug: 'test-project-1',
+      roles: [{ name: 'developer' }, { name: 'tester' }]
+    };
+    const project2 = {
+      _id: '588bb00b627569fc58ed44c7',
+      name: 'Test Project 2',
+      slug: 'test-project-2',
+      roles: []
+    };
+    const state = {
+      all: [project1, project2],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    };
+    const action = { type: types.DELETE_PROJECT };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [project1, project2],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    });
+  });
+
+  it('handles action of type DELETE_PROJECT_SUCCESS', () => {
+    const project1 = {
+      _id: '588bb00b627569fc58ed44b6',
+      name: 'Test Project 1',
+      slug: 'test-project-1',
+      roles: [{ name: 'developer' }, { name: 'tester' }]
+    };
+    const project2 = {
+      _id: '588bb00b627569fc58ed44c7',
+      name: 'Test Project 2',
+      slug: 'test-project-2',
+      roles: []
+    };
+    const state = {
+      all: [project1, project2],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    };
+    const action = {
+      type: types.DELETE_PROJECT_SUCCESS,
+      payload: {
+        id: project2._id
+      }
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [project1],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    });
+  });
+
+  it('handles action of type DELETE_PROJECT_FAILURE', () => {
+    const project1 = {
+      _id: '588bb00b627569fc58ed44b6',
+      name: 'Test Project 1',
+      slug: 'test-project-1',
+      roles: [{ name: 'developer' }, { name: 'tester' }]
+    };
+    const project2 = {
+      _id: '588bb00b627569fc58ed44c7',
+      name: 'Test Project 2',
+      slug: 'test-project-2',
+      roles: []
+    };
+    const state = {
+      all: [project1, project2],
+      all_isLoading: false,
+      all_error: null,
+      project: null,
+      project_isLoading: false,
+      project_error: null,
+      role_isPosting: false,
+      role_error: null
+    };
+    const action = {
+      type: types.DELETE_PROJECT_FAILURE,
+      payload: 'This is a sample error message.'
+    };
+    expect(projectsReducer(state, action)).to.eql({
+      all: [project1, project2],
       all_isLoading: false,
       all_error: null,
       project: null,
