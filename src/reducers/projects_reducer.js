@@ -15,6 +15,7 @@ const INITIAL_STATE = {
 
 export default function(state = INITIAL_STATE, action) {
   switch(action.type) {
+  // FETCH_PROJECTS
   case types.FETCH_PROJECTS: {
     return {
       ...state,
@@ -40,6 +41,7 @@ export default function(state = INITIAL_STATE, action) {
     };
   }
 
+  // CREATE_PROJECT
   case types.CREATE_PROJECT: { return state; }
   case types.CREATE_PROJECT_SUCCESS: {
     return {
@@ -51,6 +53,7 @@ export default function(state = INITIAL_STATE, action) {
   }
   case types.CREATE_PROJECT_FAILURE: { return state; }
 
+  // DELETE_PROJECT
   case types.DELETE_PROJECT: { return state; }
   case types.DELETE_PROJECT_SUCCESS: {
     return {
@@ -64,6 +67,7 @@ export default function(state = INITIAL_STATE, action) {
   }
   case types.DELETE_PROJECT_FAILURE: { return state; }
 
+  // FETCH_PROJECT
   case types.FETCH_PROJECT: {
     return {
       ...state,
@@ -89,6 +93,7 @@ export default function(state = INITIAL_STATE, action) {
     };
   }
 
+  // CREATE_ROLE
   case types.CREATE_ROLE: {
     return  {
       ...state,
@@ -115,6 +120,7 @@ export default function(state = INITIAL_STATE, action) {
     };
   }
 
+  // DELETE_ROLE
   case types.DELETE_ROLE: { return state; }
   case types.DELETE_ROLE_SUCCESS: {
     return {
