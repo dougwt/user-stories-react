@@ -4,8 +4,11 @@ import { browserHistory } from 'react-router';
 import { API_URI_PREFIX } from '../config';
 import * as types from './types';
 
+///////////////////////
 // Auth
+///////////////////////
 
+// authSignin
 export function authSignin({ email, password }) {
   return function(dispatch) {
     // Submit email/password to the server
@@ -27,6 +30,7 @@ export function authSignin({ email, password }) {
   };
 }
 
+// authSignup
 export function authSignup({ email, password, name }) {
   return function(dispatch) {
     // Submit email/password to the server
@@ -44,12 +48,14 @@ export function authSignup({ email, password, name }) {
   };
 }
 
+// authSignout
 export function authSignout() {
   localStorage.removeItem('token');
 
   return { type: types.AUTH_SIGNOUT };
 }
 
+// authError
 export function authError(error) {
   return {
     type: types.AUTH_ERROR,
@@ -57,6 +63,7 @@ export function authError(error) {
   };
 }
 
+// fetchMessage
 export function fetchMessage() {
   const request = axios.get(`${API_URI_PREFIX}/auth_test`, {
     headers: { authorization: localStorage.getItem('token') }
@@ -68,8 +75,11 @@ export function fetchMessage() {
   };
 }
 
+///////////////////////
 // Projects
+///////////////////////
 
+// fetchProjects
 export function fetchProjects() {
   return function(dispatch) {
     dispatch(fetchProjectsRequest());
@@ -100,6 +110,7 @@ export function fetchProjectsFailure(error) {
   };
 }
 
+// createProject
 export function createProject(props) {
   return function(dispatch) {
     dispatch(createProjectRequest());
@@ -130,6 +141,7 @@ export function createProjectFailure(error) {
   };
 }
 
+// deleteProject
 export function deleteProject(id) {
   return function(dispatch) {
     dispatch(deleteProjectRequest());
@@ -166,7 +178,7 @@ export function deleteProjectFailure(error, id) {
   };
 }
 
-
+// fetchProject
 export function fetchProject(id) {
   return function(dispatch) {
     dispatch(fetchProjectRequest());
@@ -197,8 +209,11 @@ export function fetchProjectFailure(error) {
   };
 }
 
+///////////////////////
 // Roles
+///////////////////////
 
+// createRole
 export function createRole(props) {
   return function(dispatch) {
     dispatch(createRoleRequest());
@@ -229,6 +244,7 @@ export function createRoleFailure(error) {
   };
 }
 
+// deleteRole
 export function deleteRole({ projectId, roleId }) {
   return function(dispatch) {
     dispatch(deleteRoleRequest());

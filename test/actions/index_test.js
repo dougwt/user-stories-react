@@ -46,7 +46,7 @@ describe('actions', () => {
           done();
         })
         .catch((err) => {
-          console.log('Error:', err);
+          console.error(err);
         });
     });
     it('has the correct type', () => {
@@ -164,7 +164,7 @@ describe('actions', () => {
   });
 
   describe('fetchProjects', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -217,7 +217,7 @@ describe('actions', () => {
   });
 
   describe('createProject', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -262,7 +262,7 @@ describe('actions', () => {
   });
 
   describe('deleteProject', () => {
-    let store, action, newActions;
+    let store, newActions;
 
     beforeEach((done) => {
       nock(API_URI_PREFIX)
@@ -293,7 +293,7 @@ describe('actions', () => {
   });
 
   describe('fetchProject', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -338,7 +338,7 @@ describe('actions', () => {
   });
 
   describe('createRole', () => {
-    let data, store, action, newActions;
+    let data, store, newActions;
 
     beforeEach((done) => {
       data = {
@@ -381,7 +381,7 @@ describe('actions', () => {
   });
 
   describe('deleteRole', () => {
-    let data, store, action, newActions;
+    let store, newActions;
 
     beforeEach((done) => {
       nock(API_URI_PREFIX)
